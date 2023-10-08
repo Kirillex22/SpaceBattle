@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "1Pfr0hZfVlzGIKfJ99B5O3Rqszv2mAd/h1Pvx3dydDXEh9odyVhyuJhtDRdOgtYgtuw2+Qr5+uD2dxrVa8L4vA==",
+  "dgSpecHash": "O+TQGBK6Mn4g5uhqoftji7vBphba6XKWR431fB3yRCSNfZbRBshqxziIP2wz0zt++j8tk1a9yDTjavzWIv5a4g==",
   "success": true,
   "projectFilePath": "/home/ubuntu/projects/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj",
   "expectedPackageFiles": [
     "/home/ubuntu/.nuget/packages/bodi/1.5.0/bodi.1.5.0.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/castle.core/5.1.1/castle.core.5.1.1.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/coverlet.collector/3.1.2/coverlet.collector.3.1.2.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/gherkin/19.0.3/gherkin.19.0.3.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/microsoft.codecoverage/17.3.2/microsoft.codecoverage.17.3.2.nupkg.sha512",
@@ -17,6 +18,7 @@
     "/home/ubuntu/.nuget/packages/microsoft.testplatform.objectmodel/17.3.2/microsoft.testplatform.objectmodel.17.3.2.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/microsoft.testplatform.testhost/17.3.2/microsoft.testplatform.testhost.17.3.2.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/microsoft.win32.primitives/4.3.0/microsoft.win32.primitives.4.3.0.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/moq/4.20.69/moq.4.20.69.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/netstandard.library/1.6.1/netstandard.library.1.6.1.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/newtonsoft.json/9.0.1/newtonsoft.json.9.0.1.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/nuget.frameworks/5.11.0/nuget.frameworks.5.11.0.nupkg.sha512",
@@ -38,6 +40,8 @@
     "/home/ubuntu/.nuget/packages/runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.2/runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/specflow/3.9.74/specflow.3.9.74.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/specflow.internal.json/1.0.8/specflow.internal.json.1.0.8.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/specflow.tools.msbuild.generation/3.9.74/specflow.tools.msbuild.generation.3.9.74.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/specflow.xunit/3.9.74/specflow.xunit.3.9.74.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/system.appcontext/4.3.0/system.appcontext.4.3.0.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/system.buffers/4.3.0/system.buffers.4.3.0.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/system.collections/4.3.0/system.collections.4.3.0.nupkg.sha512",
@@ -46,6 +50,7 @@
     "/home/ubuntu/.nuget/packages/system.console/4.3.0/system.console.4.3.0.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/system.diagnostics.debug/4.3.0/system.diagnostics.debug.4.3.0.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/system.diagnostics.diagnosticsource/4.3.0/system.diagnostics.diagnosticsource.4.3.0.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/system.diagnostics.eventlog/6.0.0/system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/system.diagnostics.tools/4.3.0/system.diagnostics.tools.4.3.0.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/system.diagnostics.tracing/4.3.0/system.diagnostics.tracing.4.3.0.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/system.dynamic.runtime/4.0.11/system.dynamic.runtime.4.0.11.nupkg.sha512",
@@ -100,6 +105,7 @@
     "/home/ubuntu/.nuget/packages/system.threading.timer/4.3.0/system.threading.timer.4.3.0.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/system.xml.readerwriter/4.3.0/system.xml.readerwriter.4.3.0.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/validation/2.4.18/validation.2.4.18.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/xunit/2.4.2/xunit.2.4.2.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/xunit.abstractions/2.0.3/xunit.abstractions.2.0.3.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/xunit.analyzers/1.0.0/xunit.analyzers.1.0.0.nupkg.sha512",
@@ -107,7 +113,8 @@
     "/home/ubuntu/.nuget/packages/xunit.core/2.4.2/xunit.core.2.4.2.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/xunit.extensibility.core/2.4.2/xunit.extensibility.core.2.4.2.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/xunit.extensibility.execution/2.4.2/xunit.extensibility.execution.2.4.2.nupkg.sha512",
-    "/home/ubuntu/.nuget/packages/xunit.runner.visualstudio/2.4.5/xunit.runner.visualstudio.2.4.5.nupkg.sha512"
+    "/home/ubuntu/.nuget/packages/xunit.runner.visualstudio/2.4.5/xunit.runner.visualstudio.2.4.5.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/xunit.skippablefact/1.3.12/xunit.skippablefact.1.3.12.nupkg.sha512"
   ],
   "logs": []
 }

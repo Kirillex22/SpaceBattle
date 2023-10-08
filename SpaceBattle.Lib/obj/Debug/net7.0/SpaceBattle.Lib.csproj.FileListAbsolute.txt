@@ -1,0 +1,12 @@
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/bin/Debug/net7.0/SpaceBattle.Lib.deps.json
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/bin/Debug/net7.0/SpaceBattle.Lib.dll
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/bin/Debug/net7.0/SpaceBattle.Lib.pdb
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/obj/Debug/net7.0/SpaceBattle.Lib.csproj.AssemblyReference.cache
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/obj/Debug/net7.0/SpaceBattle.Lib.GeneratedMSBuildEditorConfig.editorconfig
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/obj/Debug/net7.0/SpaceBattle.Lib.AssemblyInfoInputs.cache
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/obj/Debug/net7.0/SpaceBattle.Lib.AssemblyInfo.cs
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/obj/Debug/net7.0/SpaceBattle.Lib.csproj.CoreCompileInputs.cache
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/obj/Debug/net7.0/SpaceBattle.Lib.dll
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/obj/Debug/net7.0/refint/SpaceBattle.Lib.dll
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/obj/Debug/net7.0/SpaceBattle.Lib.pdb
+/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/obj/Debug/net7.0/ref/SpaceBattle.Lib.dll

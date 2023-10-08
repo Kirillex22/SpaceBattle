@@ -1,9 +1,9 @@
 namespace SpaceBattleLib;
 
-public class Move : ICommand
+public class MoveCommand : ICommand
     {
         private IMovable movable;
-        public Move(IMovable movable)
+        public MoveCommand(IMovable movable)
         {
             this.movable = movable;
         }
