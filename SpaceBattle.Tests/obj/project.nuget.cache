@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "O+TQGBK6Mn4g5uhqoftji7vBphba6XKWR431fB3yRCSNfZbRBshqxziIP2wz0zt++j8tk1a9yDTjavzWIv5a4g==",
+  "dgSpecHash": "bltt429jcmjdghrW8xvh614NR6kludc0mdWWA7sNFky494XZ1HaLVOYieZ/J9G6KVWTVJTad/ZlQG7vZhNNqhw==",
   "success": true,
   "projectFilePath": "/home/ubuntu/projects/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj",
   "expectedPackageFiles": [
     "/home/ubuntu/.nuget/packages/bodi/1.5.0/bodi.1.5.0.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/castle.core/5.1.1/castle.core.5.1.1.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/coverlet.collector/3.1.2/coverlet.collector.3.1.2.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/coverlet.msbuild/6.0.0/coverlet.msbuild.6.0.0.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/gherkin/19.0.3/gherkin.19.0.3.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/microsoft.codecoverage/17.3.2/microsoft.codecoverage.17.3.2.nupkg.sha512",
     "/home/ubuntu/.nuget/packages/microsoft.csharp/4.0.1/microsoft.csharp.4.0.1.nupkg.sha512",

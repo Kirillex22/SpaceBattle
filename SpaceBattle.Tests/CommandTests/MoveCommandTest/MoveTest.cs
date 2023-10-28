@@ -51,9 +51,11 @@ public class MoveTest
     public void NewCoords(double x, double y)
     {
         mc.Execute();
+
         var expected = new Vector(x, y);
-        IMovable movable = m.Object;
-        Assert.True(Vector.Equals(expected, movable.position));
+        var result = m.Object.position;
+        
+        Assert.Equal(expected.ToList(), result.ToList());
     }   
 
     [Then(@"возникает ошибка Exception")]

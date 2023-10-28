@@ -2,9 +2,9 @@ namespace SpaceBattleLib;
 
  public class Vector
     {
-        public double x {get; set;}
+        public double x;
 
-        public double y {get; set;}
+        public double y;
 
         public Vector(double x, double y)
         {
@@ -14,11 +14,14 @@ namespace SpaceBattleLib;
 
         public static Vector operator +(Vector v1, Vector v2)
         {
+            if (Double.IsNaN(v1.x)||Double.IsNaN(v1.y)||Double.IsNaN(v2.x)||Double.IsNaN(v2.y))
+                throw new ArgumentException("One of the vectors contains some NaN value");
+
             return new Vector(v1.x + v2.x, v1.y + v2.y);                 
         }
 
-        public static bool Equals(Vector v1, Vector v2)
+        public List<double> ToList()
         {
-            return ((v1.x == v2.x)&&(v1.y == v2.y));
+            return new List<double>() {x,y};
         }
     }
