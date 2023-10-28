@@ -1,7 +1,6 @@
 using SpaceBattleLib;
 using TechTalk.SpecFlow;
 using Moq;
-using System.Diagnostics.CodeAnalysis;
 
 namespace SpaceBattleTest;
 
@@ -41,11 +40,13 @@ public class VectorTest
         var expected = new VectorModificated(new double[] {x, y});
         
         Assert.Equal(expected.ToList(), result.ToList());
+        vectors.Clear();
     }   
 
     [Then(@"возникает ArgumentException")]
     public void ThrowingException()
     {
         Assert.Throws<ArgumentException>(() => vectors[0] + vectors[1]);
+        vectors.Clear();
     }
 }
