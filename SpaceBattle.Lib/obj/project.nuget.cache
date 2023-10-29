@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "GGq1BFFtMRfCYvuPrvkQIYFxVdsLDc9zvJ1ZQjcHnTgsd99QX8e5FG5goEnu2ZNQ0P7XV7lCWpzxwGUU6cz6Rw==",
+  "success": true,
+  "projectFilePath": "/home/ubuntu/SpaceBattle/SpaceBattle.Lib/SpaceBattle.csproj",
+  "expectedPackageFiles": [
+    "/home/ubuntu/.nuget/packages/microsoft.netcore.app.ref/7.0.8/microsoft.netcore.app.ref.7.0.8.nupkg.sha512",
+    "/home/ubuntu/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.8/microsoft.aspnetcore.app.ref.7.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}

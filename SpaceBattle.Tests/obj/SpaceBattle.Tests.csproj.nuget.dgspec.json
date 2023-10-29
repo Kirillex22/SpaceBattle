@@ -1,0 +1,77 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj": {}
+  },
+  "projects": {
+    "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj",
+        "projectName": "SpaceBattle.Tests",
+        "projectPath": "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj",
+        "packagesPath": "/home/ubuntu/.nuget/packages/",
+        "outputPath": "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/ubuntu/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "SpecFlow.NUnit": {
+              "target": "Package",
+              "version": "[3.9.74, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.8, 7.0.8]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.8, 7.0.8]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.108/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
