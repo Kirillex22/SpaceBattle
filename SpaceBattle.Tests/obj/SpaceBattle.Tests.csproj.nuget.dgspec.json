@@ -4,14 +4,14 @@
     "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj": {}
   },
   "projects": {
-    "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj": {
+    "/home/ubuntu/SpaceBattle/SpaceBattle.Lib/SpaceBattle.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj",
-        "projectName": "SpaceBattle.Tests",
-        "projectPath": "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj",
+        "projectUniqueName": "/home/ubuntu/SpaceBattle/SpaceBattle.Lib/SpaceBattle.csproj",
+        "projectName": "SpaceBattle",
+        "projectPath": "/home/ubuntu/SpaceBattle/SpaceBattle.Lib/SpaceBattle.csproj",
         "packagesPath": "/home/ubuntu/.nuget/packages/",
-        "outputPath": "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/obj/",
+        "outputPath": "/home/ubuntu/SpaceBattle/SpaceBattle.Lib/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/ubuntu/.nuget/NuGet/NuGet.Config"
@@ -37,10 +37,101 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.8, 7.0.8]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.8, 7.0.8]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.108/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj",
+        "projectName": "SpaceBattle.Tests",
+        "projectPath": "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/SpaceBattle.Tests.csproj",
+        "packagesPath": "/home/ubuntu/.nuget/packages/",
+        "outputPath": "/home/ubuntu/SpaceBattle/SpaceBattle.Tests/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/ubuntu/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/home/ubuntu/SpaceBattle/SpaceBattle.Lib/SpaceBattle.csproj": {
+                "projectPath": "/home/ubuntu/SpaceBattle/SpaceBattle.Lib/SpaceBattle.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.3.2, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.69, )"
+            },
             "SpecFlow.NUnit": {
               "target": "Package",
               "version": "[3.9.74, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.5.3, )"
             }
           },
           "imports": [
