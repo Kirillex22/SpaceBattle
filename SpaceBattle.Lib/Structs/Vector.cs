@@ -1,27 +1,31 @@
+using System.ComponentModel;
+
 namespace SpaceBattleLib;
 
  public class Vector
     {
-        public double x;
+        public double[] coords;
 
-        public double y;
-
-        public Vector(double x, double y)
+        public Vector(double[] coords)
         {
-            this.x = x;
-            this.y = y;
+            this.coords = coords;
         }
 
         public static Vector operator +(Vector v1, Vector v2)
         {
-            if (Double.IsNaN(v1.x)||Double.IsNaN(v1.y)||Double.IsNaN(v2.x)||Double.IsNaN(v2.y))
-                throw new ArgumentException("One of the vectors contains some NaN value");
+            if (v1.coords.Contains(double.NaN)||v2.coords.Contains(double.NaN))
+            {
+                throw new ArgumentException();
+            }
 
-            return new Vector(v1.x + v2.x, v1.y + v2.y);                 
-        }
+            var coords1 = v1.coords;
+            var coords2 = v2.coords;
+            var result = new double[v1.coords.Length];
 
-        public List<double> ToList()
-        {
-            return new List<double>() {x,y};
+            for(int i = 0; i < v1.coords.Length; i++)
+                result[i] = coords1[i] + coords2[i];
+
+            return new Vector(result);
+                             
         }
     }

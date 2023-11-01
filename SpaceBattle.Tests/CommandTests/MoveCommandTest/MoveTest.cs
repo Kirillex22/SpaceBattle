@@ -14,13 +14,13 @@ public class MoveTest
     [Given(@"космический корабль находится в точке пространства с координатами \((.*), (.*)\)")]
     public void SetCoords(double x, double y)
     {
-        m.SetupProperty(_m => _m.position, new Vector(x, y)); 
+        m.SetupProperty(_m => _m.position, new Vector(new double[] {x, y})); 
     }
 
     [Given(@"имеет мгновенную скорость \((.*), (.*)\)")]
     public void SetVelocity(double x, double y)
     {
-         m.SetupGet(_m => _m.velocity).Returns(new Vector(x, y));
+         m.SetupGet(_m => _m.velocity).Returns(new Vector(new double[] {x, y}));
     }
 
     [Given(@"скорость корабля определить невозможно")] 
@@ -52,10 +52,10 @@ public class MoveTest
     {
         mc.Execute();
 
-        var expected = new Vector(x, y);
+        var expected = new Vector(new double[] {x, y});
         var result = m.Object.position;
         
-        Assert.Equal(expected.ToList(), result.ToList());
+        Assert.Equal(expected.coords, result.coords);
     }   
 
     [Then(@"возникает ошибка Exception")]

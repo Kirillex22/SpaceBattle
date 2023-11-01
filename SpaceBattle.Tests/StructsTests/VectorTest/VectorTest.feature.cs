@@ -178,7 +178,7 @@ testRunner.And("вектор с координатами (1, 4)", ((string)(null
 testRunner.When("происходит сложение векторов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Когда ");
 #line hidden
 #line 20
-testRunner.Then("возникает ArgumentException", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Тогда ");
+testRunner.Then("возникает IndexOutOfRangeException", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Тогда ");
 #line hidden
             }
             this.ScenarioCleanup();
