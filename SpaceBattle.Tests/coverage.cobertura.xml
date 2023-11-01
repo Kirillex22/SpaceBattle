@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<coverage line-rate="1" branch-rate="1" version="1.9" timestamp="1698834663" lines-covered="15" lines-valid="15" branches-covered="0" branches-valid="0">
+  <sources>
+    <source>/home/ubuntu/SpaceBattle/SpaceBattle.Lib/</source>
+  </sources>
+  <packages>
+    <package name="SpaceBattle" line-rate="1" branch-rate="1" complexity="4">
+      <classes>
+        <class name="SpaceBattle.Lib.Turn" filename="Commands/TurnCommand.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="Execute" signature="()" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="10" hits="4" branch="False" />
+                <line number="11" hits="4" branch="False" />
+                <line number="12" hits="1" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(SpaceBattle.Lib.ITurnable)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="5" hits="4" branch="False" />
+                <line number="6" hits="4" branch="False" />
+                <line number="7" hits="4" branch="False" />
+                <line number="8" hits="4" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="10" hits="4" branch="False" />
+            <line number="11" hits="4" branch="False" />
+            <line number="12" hits="1" branch="False" />
+            <line number="5" hits="4" branch="False" />
+            <line number="6" hits="4" branch="False" />
+            <line number="7" hits="4" branch="False" />
+            <line number="8" hits="4" branch="False" />
+          </lines>
+        </class>
+        <class name="SpaceBattle.Lib.Angle" filename="Structs/Angle.cs" line-rate="1" branch-rate="1" complexity="2">
+          <methods>
+            <method name="op_Addition" signature="(SpaceBattle.Lib.Angle,SpaceBattle.Lib.Angle)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="15" hits="2" branch="False" />
+                <line number="16" hits="2" branch="False" />
+                <line number="17" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name=".ctor" signature="(System.Int32,System.Int32)" line-rate="1" branch-rate="1" complexity="1">
+              <lines>
+                <line number="8" hits="11" branch="False" />
+                <line number="9" hits="11" branch="False" />
+                <line number="10" hits="11" branch="False" />
+                <line number="11" hits="11" branch="False" />
+                <line number="12" hits="11" branch="False" />
+              </lines>
+            </method>
+          </methods>
+          <lines>
+            <line number="15" hits="2" branch="False" />
+            <line number="16" hits="2" branch="False" />
+            <line number="17" hits="2" branch="False" />
+            <line number="8" hits="11" branch="False" />
+            <line number="9" hits="11" branch="False" />
+            <line number="10" hits="11" branch="False" />
+            <line number="11" hits="11" branch="False" />
+            <line number="12" hits="11" branch="False" />
+          </lines>
+        </class>
+      </classes>
+    </package>
+  </packages>
+</coverage>

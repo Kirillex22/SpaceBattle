@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace SpaceBattle.Tests.CommandTests
+namespace SpaceBattle.Tests.CommandTests.TurnTests
 {
     using TechTalk.SpecFlow;
     using System;
@@ -19,41 +19,43 @@ namespace SpaceBattle.Tests.CommandTests
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Поворот вокруг собственной оси")]
-    [NUnit.Framework.CategoryAttribute("Turn")]
-    public partial class ПоворотВокругСобственнойОсиFeature
+    [Xunit.TraitAttribute("Category", "Turn")]
+    public partial class ПоворотВокругСобственнойОсиFeature : object, Xunit.IClassFixture<ПоворотВокругСобственнойОсиFeature.FixtureData>, System.IDisposable
     {
         
-        private TechTalk.SpecFlow.ITestRunner testRunner;
+        private static TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = new string[] {
                 "Turn"};
         
+        private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
+        
 #line 1 "TurnTest.feature"
 #line hidden
         
-        [NUnit.Framework.OneTimeSetUpAttribute()]
-        public virtual void FeatureSetup()
+        public ПоворотВокругСобственнойОсиFeature(ПоворотВокругСобственнойОсиFeature.FixtureData fixtureData, SpaceBattle_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        {
+            this._testOutputHelper = testOutputHelper;
+            this.TestInitialize();
+        }
+        
+        public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("ru-RU"), "CommandTests", "Поворот вокруг собственной оси", null, ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("ru-RU"), "CommandTests/TurnTests", "Поворот вокруг собственной оси", null, ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        [NUnit.Framework.OneTimeTearDownAttribute()]
-        public virtual void FeatureTearDown()
+        public static void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
         
-        [NUnit.Framework.SetUpAttribute()]
         public void TestInitialize()
         {
         }
         
-        [NUnit.Framework.TearDownAttribute()]
         public void TestTearDown()
         {
             testRunner.OnScenarioEnd();
@@ -62,7 +64,7 @@ namespace SpaceBattle.Tests.CommandTests
         public void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
-            testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<NUnit.Framework.TestContext>(NUnit.Framework.TestContext.CurrentContext);
+            testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
         public void ScenarioStart()
@@ -75,8 +77,14 @@ namespace SpaceBattle.Tests.CommandTests
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Игровой объект может повернуться вокруг собственной оси")]
+        void System.IDisposable.Dispose()
+        {
+            this.TestTearDown();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Игровой объект может повернуться вокруг собственной оси")]
+        [Xunit.TraitAttribute("FeatureTitle", "Поворот вокруг собственной оси")]
+        [Xunit.TraitAttribute("Description", "Игровой объект может повернуться вокруг собственной оси")]
         public void ИгровойОбъектМожетПовернутьсяВокругСобственнойОси()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -96,20 +104,22 @@ this.ScenarioInitialize(scenarioInfo);
 testRunner.Given("космический корабль находится под углом к горизонту в (45) градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
 #line hidden
 #line 6
-testRunner.And("имеет угловую скорость 90 градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
+testRunner.And("имеет угловую скорость (90) градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
 #line hidden
 #line 7
 testRunner.When("происходит поворот вокруг собственной оси", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Когда ");
 #line hidden
 #line 8
-testRunner.Then("космический корабль оказывается под углом 135 градусов к горизонту", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Тогда ");
+testRunner.Then("космический корабль оказывается под углом (135) градусов к горизонту", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Тогда ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Если невозможно определить угла наклона корабля к горизонту, то поворот невозможе" +
+        [Xunit.SkippableFactAttribute(DisplayName="Если невозможно определить угла наклона корабля к горизонту, то поворот невозможе" +
+            "н")]
+        [Xunit.TraitAttribute("FeatureTitle", "Поворот вокруг собственной оси")]
+        [Xunit.TraitAttribute("Description", "Если невозможно определить угла наклона корабля к горизонту, то поворот невозможе" +
             "н")]
         public void ЕслиНевозможноОпределитьУглаНаклонаКорабляКГоризонтуТоПоворотНевозможен()
         {
@@ -131,7 +141,7 @@ this.ScenarioInitialize(scenarioInfo);
 testRunner.Given("космический корабль, угол наклона к горизонту которого невозможно определить", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
 #line hidden
 #line 12
-testRunner.And("имеет угловую скорость 90 градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
+testRunner.And("имеет угловую скорость (90) градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
 #line hidden
 #line 13
 testRunner.When("происходит поворот вокруг собственной оси", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Когда ");
@@ -143,8 +153,9 @@ testRunner.Then("возникает ошибка Exception", ((string)(null)), (
             this.ScenarioCleanup();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Если невозможно определить угловую скорость корабля, то поворот невозможен")]
+        [Xunit.SkippableFactAttribute(DisplayName="Если невозможно определить угловую скорость корабля, то поворот невозможен")]
+        [Xunit.TraitAttribute("FeatureTitle", "Поворот вокруг собственной оси")]
+        [Xunit.TraitAttribute("Description", "Если невозможно определить угловую скорость корабля, то поворот невозможен")]
         public void ЕслиНевозможноОпределитьУгловуюСкоростьКорабляТоПоворотНевозможен()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -161,7 +172,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 17
-testRunner.Given("космический корабль находится под углом к горизонту в 45 градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
+testRunner.Given("космический корабль находится под углом к горизонту в (45) градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
 #line hidden
 #line 18
 testRunner.And("угловую скорость корабля определить неозможно", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
@@ -176,8 +187,9 @@ testRunner.Then("возникает ошибка Exception", ((string)(null)), (
             this.ScenarioCleanup();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Если невозможно изменить угол наклона корабля к горизонту, то поворот невозможен")]
+        [Xunit.SkippableFactAttribute(DisplayName="Если невозможно изменить угол наклона корабля к горизонту, то поворот невозможен")]
+        [Xunit.TraitAttribute("FeatureTitle", "Поворот вокруг собственной оси")]
+        [Xunit.TraitAttribute("Description", "Если невозможно изменить угол наклона корабля к горизонту, то поворот невозможен")]
         public void ЕслиНевозможноИзменитьУголНаклонаКорабляКГоризонтуТоПоворотНевозможен()
         {
             string[] tagsOfScenario = ((string[])(null));
@@ -194,7 +206,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 23
-testRunner.Given("космический корабль находится под углом к горизонту в 45 градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
+testRunner.Given("космический корабль находится под углом к горизонту в (45) градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
 #line hidden
 #line 24
 testRunner.And("угловую скорость корабля определить неозможно", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
@@ -210,6 +222,22 @@ testRunner.Then("возникает ошибка Exception", ((string)(null)), (
 #line hidden
             }
             this.ScenarioCleanup();
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
+        [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        public class FixtureData : System.IDisposable
+        {
+            
+            public FixtureData()
+            {
+                ПоворотВокругСобственнойОсиFeature.FeatureSetup();
+            }
+            
+            void System.IDisposable.Dispose()
+            {
+                ПоворотВокругСобственнойОсиFeature.FeatureTearDown();
+            }
         }
     }
 }

@@ -105,6 +105,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.Build": {
+              "target": "Package",
+              "version": "[17.7.2, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.3.2, )"
@@ -113,7 +117,7 @@
               "target": "Package",
               "version": "[4.20.69, )"
             },
-            "SpecFlow.NUnit": {
+            "SpecFlow.xUnit": {
               "target": "Package",
               "version": "[3.9.74, )"
             },
@@ -122,6 +126,12 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.1.2, )"
+            },
+            "coverlet.msbuild": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.0, )"
             },
             "xunit": {
               "target": "Package",

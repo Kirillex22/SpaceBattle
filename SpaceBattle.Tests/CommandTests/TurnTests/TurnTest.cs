@@ -16,15 +16,13 @@ public class TurnTest
     [Given(@"космический корабль находится под углом к горизонту в \((.*)\) градусов")]
     public void SetAngle(int x)
     {
-        x /= 45;
-        mq.SetupProperty(_mq => _mq.angle, new Angle(x, 8)); 
+        mq.SetupProperty(_mq => _mq.angle, new Angle(x/45, 8)); 
     }
 
-    [Given(@"имеет угловую скорость \(.*\) градусов")]
+    [Given(@"имеет угловую скорость \((.*)\) градусов")]
     public void SetAngleVelocity(int v)
     {
-        v /= 45;
-        mq.SetupGet(_mq => _mq.angle_velocity).Returns(new Angle(v, 8));
+        mq.SetupGet(_mq => _mq.angle_velocity).Returns(new Angle(v/45, 8));
     }
 
 
@@ -34,15 +32,15 @@ public class TurnTest
         turn = new(mq.Object);
     }
 
-    [Then(@"космический корабль оказывается под углом \(.*\) градусов к горизонту")]
+    [Then(@"космический корабль оказывается под углом \((.*)\) градусов к горизонту")]
     public void NewCoords(int x)
     {
         turn.Execute();
 
-        var expect = new Angle(x, 8);
+        var expect = new Angle(x/45, 8);
         var result = mq.Object.angle;
         
-        Assert.Equal(expect, result);
+        Assert.Equal(expect.ToString(), result.ToString());
     }  
 
     [Given(@"космический корабль, угол наклона к горизонту которого невозможно определить")] 
