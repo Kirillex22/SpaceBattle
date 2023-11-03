@@ -1,0 +1,103 @@
+{
+  "SpaceBattle.Lib.dll": {
+    "/workspaces/SpaceBattle/SpaceBattle.Lib/Commands/MoveCommand.cs": {
+      "SpaceBattleLib.MoveCommand": {
+        "System.Void SpaceBattleLib.MoveCommand::Execute()": {
+          "Lines": {
+            "11": 4,
+            "12": 4,
+            "13": 1
+          },
+          "Branches": []
+        },
+        "System.Void SpaceBattleLib.MoveCommand::.ctor(SpaceBattleLib.IMovable)": {
+          "Lines": {
+            "6": 4,
+            "7": 4,
+            "8": 4,
+            "9": 4
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/workspaces/SpaceBattle/SpaceBattle.Lib/Structs/Vector.cs": {
+      "SpaceBattleLib.Vector": {
+        "SpaceBattleLib.Vector SpaceBattleLib.Vector::op_Addition(SpaceBattleLib.Vector,SpaceBattleLib.Vector)": {
+          "Lines": {
+            "15": 4,
+            "16": 4,
+            "17": 1,
+            "18": 1,
+            "21": 3,
+            "22": 3,
+            "23": 3,
+            "25": 18,
+            "26": 7,
+            "28": 2,
+            "30": 2
+          },
+          "Branches": [
+            {
+              "Line": 16,
+              "Offset": 21,
+              "EndOffset": 23,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 3
+            },
+            {
+              "Line": 16,
+              "Offset": 21,
+              "EndOffset": 45,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            },
+            {
+              "Line": 16,
+              "Offset": 48,
+              "EndOffset": 50,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            },
+            {
+              "Line": 16,
+              "Offset": 48,
+              "EndOffset": 57,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 3
+            },
+            {
+              "Line": 25,
+              "Offset": 125,
+              "EndOffset": 90,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 7
+            },
+            {
+              "Line": 25,
+              "Offset": 125,
+              "EndOffset": 127,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 2
+            }
+          ]
+        },
+        "System.Void SpaceBattleLib.Vector::.ctor(System.Double[])": {
+          "Lines": {
+            "9": 16,
+            "10": 16,
+            "11": 16,
+            "12": 16
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}
