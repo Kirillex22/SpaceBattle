@@ -7,24 +7,18 @@ namespace SpaceBattleTest;
 [Binding]
 public class VectorTest
 { 
-    private List<Vector> vectors =  new List<Vector>();
+    private List<Vector> vectors = new List<Vector>();
   
     [Given(@"вектор с координатами \((.*), (.*)\)")]
-    public void CreateGoodVector(double x, double y)
+    public void CreateGoodVector(int x, int y)
     {
-       vectors.Add(new Vector(new double[] {x, y}));
-    }
-
-    [Given(@"двумерный вектор, одна из координат которого пуста")]
-    public void CreateBadVector()
-    {
-         vectors.Add(new Vector(new double[] {1, double.NaN}));
+       vectors.Add(new Vector(new int[] {x, y}));
     }
 
     [Given(@"вектор с координатами \((.*), (.*), (.*)\)")]
-    public void CreateBigVector(double x, double y, double z)
+    public void CreateBigVector(int x, int y, int z)
     {
-        vectors.Add(new Vector(new double[] {x, y, z}));
+        vectors.Add(new Vector(new int[] {x, y, z}));
     }
 
     [When(@"происходит сложение векторов")]
@@ -34,21 +28,14 @@ public class VectorTest
     }
 
     [Then(@"получаем вектор \((.*), (.*)\)")]
-    public void ReturningVector(double x, double y)
+    public void ReturningVector(int x, int y)
     {
         var result = vectors[0] + vectors[1];
-        var expected = new Vector(new double[] {x, y});
+        var expected = new Vector(new int[] {x, y});
         
-        Assert.Equal(expected.coords, result.coords);
+        Assert.Equal(expected.Coords, result.Coords);
         vectors.Clear();
     }   
-
-    [Then(@"возникает ArgumentException")]
-    public void ThrowingArgException()
-    {
-        Assert.Throws<ArgumentException>(() => vectors[0] + vectors[1]);
-        vectors.Clear();
-    }
 
     [Then(@"возникает IndexOutOfRangeException")]
     public void ThrowingIndexOutOfRangeException()

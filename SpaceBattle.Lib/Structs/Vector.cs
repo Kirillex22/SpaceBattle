@@ -4,28 +4,21 @@ namespace SpaceBattleLib;
 
  public class Vector
     {
-        public double[] coords;
+        public int[] Coords {get; }
 
-        public Vector(double[] coords)
+        public Vector(int[] coords)
         {
-            this.coords = coords;
+            Coords = coords;
         }
 
         public static Vector operator +(Vector v1, Vector v2)
         {
-            if (v1.coords.Contains(double.NaN)||v2.coords.Contains(double.NaN))
-            {
-                throw new ArgumentException();
-            }
+            var coords1 = v1.Coords;
+            var coords2 = v2.Coords;
 
-            var coords1 = v1.coords;
-            var coords2 = v2.coords;
-            var result = new double[v1.coords.Length];
+            int[] res = coords1.Select((value, index) => value + coords2[index]).ToArray();
 
-            for(int i = 0; i < v1.coords.Length; i++)
-                result[i] = coords1[i] + coords2[i];
-
-            return new Vector(result);
+            return new Vector(res);
                              
         }
     }

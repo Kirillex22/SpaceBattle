@@ -7,20 +7,27 @@ namespace SpaceBattleTest;
 [Binding]
 public class MoveTest
 { 
-    private Mock<IMovable> m = new Mock<IMovable>();
-    private MoveCommand mc;
+    private readonly Mock<IMovable> m;
 
-    
-    [Given(@"космический корабль находится в точке пространства с координатами \((.*), (.*)\)")]
-    public void SetCoords(double x, double y)
+    private Action commandExecutionLambda;
+
+    public MoveTest()
     {
-        m.SetupProperty(_m => _m.Position, new Vector(new double[] {x, y})); 
+        m = new Mock<IMovable>();
+
+        commandExecutionLambda = () => { };
+    }
+ 
+    [Given(@"космический корабль находится в точке пространства с координатами \((.*), (.*)\)")]
+    public void SetCoords(int x, int y)
+    {
+        m.SetupProperty(_m => _m.Position, new Vector(new int[] {x, y})); 
     }
 
     [Given(@"имеет мгновенную скорость \((.*), (.*)\)")]
-    public void SetVelocity(double x, double y)
+    public void SetVelocity(int x, int y)
     {
-         m.SetupGet(_m => _m.Velocity).Returns(new Vector(new double[] {x, y}));
+         m.SetupGet(_m => _m.Velocity).Returns(new Vector(new int[] {x, y}));
     }
 
     [Given(@"скорость корабля определить невозможно")] 
@@ -44,23 +51,24 @@ public class MoveTest
     [When(@"происходит прямолинейное равномерное движение без деформации")]
     public void Moving()
     {
-        mc = new(m.Object);
+        var mc = new MoveCommand(m.Object);
+        commandExecutionLambda = () => mc.Execute();
     }
 
     [Then(@"космический корабль перемещается в точку пространства с координатами \((.*), (.*)\)")]
-    public void NewCoords(double x, double y)
+    public void NewCoords(int x, int y)
     {
-        mc.Execute();
+        commandExecutionLambda();
 
-        var expected = new Vector(new double[] {x, y});
+        var expected = new Vector(new int[] {x, y});
         var result = m.Object.Position;
         
-        Assert.Equal(expected.coords, result.coords);
+        Assert.Equal(expected.Coords, result.Coords);
     }   
 
     [Then(@"возникает ошибка Exception")]
     public void ThrowingException()
     {
-        Assert.Throws<NullReferenceException>(() => mc.Execute());
+        Assert.Throws<NullReferenceException>(() => commandExecutionLambda());
     }
 }
