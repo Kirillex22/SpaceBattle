@@ -4,6 +4,8 @@ name: SpaceBattle
 on:
   push:
     branches: ["lab1_kirillex22"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build:
