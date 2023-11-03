@@ -1,5 +1,3 @@
-TestResults
-
 *.swp
 .~
 project.lock.json
@@ -43,3 +41,5 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+coverage.cobertura.xml
+coverage.json
