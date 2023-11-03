@@ -2,17 +2,17 @@ namespace SpaceBattle.Lib;
 
 public class Angle
 {
-    public int x;
-    public int y;
+    public int sector;
+    public int separation;
 
-    public Angle(int x, int y)
+    public Angle(int sector, int separation = 8)
     {
-        this.x = x;
-        this.y = y;
+        this.sector = sector;
+        this.separation = separation;
     }
 
     public static Angle operator +(Angle u1, Angle u2)
     {
-        return new Angle((u1.x + u2.x)%u1.y, u1.y);
+        return new Angle((u1.sector + u2.sector)%u1.separation, u1.separation);
     }
 }

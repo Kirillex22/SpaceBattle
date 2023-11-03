@@ -12,7 +12,7 @@ public class AngleTest
     [Given(@"имеется угол \((.*)\) градусов")]
     public void SetAngle(int x)
     {
-        angles.Add(new Angle(x/45, 8));
+        angles.Add(new Angle(x/45));
     }
 
     [When("происходит сложение векторов")]
@@ -24,7 +24,7 @@ public class AngleTest
     [Then(@"получается угол \((.*)\) градусов")]
     public void NewAngle(int y)
     {
-        var expect = new Angle(y/45, 8);
+        var expect = new Angle(y/45);
         Assert.Equal(expect.ToString(), result.ToString());
     }
    
