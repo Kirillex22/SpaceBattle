@@ -2,14 +2,14 @@ namespace SpaceBattleLib;
 
 public class MoveCommand : ICommand
     {
-        private IMovable movable;
+        private IMovable _movable;
         public MoveCommand(IMovable movable)
         {
-            this.movable = movable;
+            _movable = movable;
         }
         public void Execute()
         {
-            movable.position += movable.velocity;
+            _movable.Position += _movable.Velocity;
         }
 
     }

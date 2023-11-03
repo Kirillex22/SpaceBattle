@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "/home/ubuntu/.nuget/packages/": {}
+    "/home/codespace/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/SpaceBattle.Lib.csproj",
+      "projectUniqueName": "/workspaces/SpaceBattle/SpaceBattle.Lib/SpaceBattle.Lib.csproj",
       "projectName": "SpaceBattle.Lib",
-      "projectPath": "/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/SpaceBattle.Lib.csproj",
-      "packagesPath": "/home/ubuntu/.nuget/packages/",
-      "outputPath": "/home/ubuntu/projects/SpaceBattle/SpaceBattle.Lib/obj/",
+      "projectPath": "/workspaces/SpaceBattle/SpaceBattle.Lib/SpaceBattle.Lib.csproj",
+      "packagesPath": "/home/codespace/.nuget/packages/",
+      "outputPath": "/workspaces/SpaceBattle/SpaceBattle.Lib/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/ubuntu/.nuget/NuGet/NuGet.Config"
+        "/home/codespace/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -59,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.111/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/dotnet/7.0.306/sdk/7.0.306/RuntimeIdentifierGraph.json"
       }
     }
   }
