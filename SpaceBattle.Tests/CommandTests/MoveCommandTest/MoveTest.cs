@@ -39,7 +39,7 @@ public class MoveTest
     [Given(@"изменить положение в пространстве космического корабля невозможно")]
     public void CordsChangeError()
     {
-        m.Setup(_m => _m.Position).Throws<NullReferenceException>();
+        m.SetupSet(_m => _m.Position).Throws<NullReferenceException>();
     }
 
     [Given(@"космический корабль, положение в пространстве которого невозможно определить")]
@@ -72,3 +72,4 @@ public class MoveTest
         Assert.Throws<NullReferenceException>(() => commandExecutionLambda());
     }
 }
+
