@@ -7,7 +7,17 @@ namespace SpaceBattleTest;
 [Binding]
 public class VectorTest
 { 
-    private List<Vector> vectors = new List<Vector>();
+    private List<Vector> vectors;
+    private Vector operationResult;
+    private Action vectorSumLambda;
+
+    public VectorTest()
+    {
+        vectors = new List<Vector>();
+        operationResult = new Vector(new int[]{});
+        vectorSumLambda = () => {};
+    }
+    
   
     [Given(@"вектор с координатами \((.*), (.*)\)")]
     public void CreateGoodVector(int x, int y)
@@ -24,13 +34,14 @@ public class VectorTest
     [When(@"происходит сложение векторов")]
     public void Sum()
     {
-
+        vectorSumLambda = () => operationResult = vectors[0] + vectors[1];
     }
 
     [Then(@"получаем вектор \((.*), (.*)\)")]
     public void ReturningVector(int x, int y)
     {
-        var result = vectors[0] + vectors[1];
+        vectorSumLambda();
+        var result = operationResult;
         var expected = new Vector(new int[] {x, y});
         
         Assert.Equal(expected.Coords, result.Coords);
@@ -40,7 +51,7 @@ public class VectorTest
     [Then(@"возникает IndexOutOfRangeException")]
     public void ThrowingIndexOutOfRangeException()
     {
-        Assert.Throws<IndexOutOfRangeException>(() => vectors[0] + vectors[1]);
+        Assert.Throws<IndexOutOfRangeException>(() => vectorSumLambda());
         vectors.Clear();
     }
     
