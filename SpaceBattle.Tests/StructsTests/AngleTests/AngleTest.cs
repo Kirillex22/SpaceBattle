@@ -44,3 +44,4 @@ public class AngleTest
         Assert.ThrowsAny<Exception>(() => lambda());
     }
 }
+
