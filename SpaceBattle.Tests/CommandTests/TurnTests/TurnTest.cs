@@ -64,6 +64,7 @@ public class TurnTest
     [Given(@"изменить угол наклона к горизонту невозможно")]
     public void NoneChangeCoords()
     {
-        mq.Setup(_mq => _mq.Angle).Throws<NullReferenceException>();
+        mq.SetupSet(_mq => _mq.Angle).Throws<NullReferenceException>();
     }
 }
+
