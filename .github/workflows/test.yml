@@ -2,11 +2,9 @@ name: SpaceBattle
 
 
 on:
-  push:
-    branches: ["Lab1_Ex2_Egor767"]
   pull_request:
     branches: ["main"]
-
+    
 jobs:
   build:
     runs-on: ubuntu-latest
