@@ -16,13 +16,13 @@ public class TurnTest
     [Given(@"космический корабль находится под углом к горизонту в \((.*)\) градусов")]
     public void SetAngle(int x)
     {
-        mq.SetupProperty(_mq => _mq.Angle, new Angle(x/45)); 
+        mq.SetupProperty(_mq => _mq.Angle, new Angle(x/45, 8)); 
     }
 
     [Given(@"имеет угловую скорость \((.*)\) градусов")]
     public void SetAngleVelocity(int v)
     {
-        mq.SetupGet(_mq => _mq.AngleVelocity).Returns(new Angle(v/45));
+        mq.SetupGet(_mq => _mq.AngleVelocity).Returns(new Angle(v/45, 8));
     }
 
 
@@ -37,7 +37,7 @@ public class TurnTest
     {
         turn.Execute();
 
-        var expect = new Angle(x/45);
+        var expect = new Angle(x/45, 8);
         var result = mq.Object.Angle;
         
         Assert.Equal(expect.ToString(), result.ToString());
