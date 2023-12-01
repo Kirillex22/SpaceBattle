@@ -25,5 +25,4 @@ jobs:
 
       - name: SpaceBattle-Unit-Test
         run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-        
-        
+         
