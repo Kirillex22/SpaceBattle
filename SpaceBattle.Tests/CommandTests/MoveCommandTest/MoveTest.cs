@@ -1,4 +1,4 @@
-using SpaceBattleLib;
+using SpaceBattle.Lib;
 using TechTalk.SpecFlow;
 using Moq;
 

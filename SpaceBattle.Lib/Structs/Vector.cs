@@ -1,6 +1,4 @@
-using System.ComponentModel;
-
-namespace SpaceBattleLib;
+namespace SpaceBattle.Lib;
 
 public class Vector
 {

@@ -1,8 +1,8 @@
-using SpaceBattleLib;
+using SpaceBattle.Lib;
 using TechTalk.SpecFlow;
 using Moq;
 
-namespace SpaceBattleTest;
+namespace SpaceBattle.Test;
 
 [Binding]
 public class VectorTest
