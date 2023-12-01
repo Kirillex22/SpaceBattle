@@ -72,3 +72,4 @@ public class MoveTest
         Assert.Throws<NullReferenceException>(() => commandExecutionLambda());
     }
 }
+
