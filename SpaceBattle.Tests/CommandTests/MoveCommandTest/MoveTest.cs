@@ -6,7 +6,7 @@ namespace SpaceBattleTest;
 
 [Binding]
 public class MoveTest
-{ 
+{
     private readonly Mock<IMovable> m;
 
     private Action commandExecutionLambda;
@@ -17,20 +17,20 @@ public class MoveTest
 
         commandExecutionLambda = () => { };
     }
- 
+
     [Given(@"космический корабль находится в точке пространства с координатами \((.*), (.*)\)")]
     public void SetCoords(int x, int y)
     {
-        m.SetupProperty(_m => _m.Position, new Vector(new int[] {x, y})); 
+        m.SetupProperty(_m => _m.Position, new Vector(new int[] { x, y }));
     }
 
     [Given(@"имеет мгновенную скорость \((.*), (.*)\)")]
     public void SetVelocity(int x, int y)
     {
-         m.SetupGet(_m => _m.Velocity).Returns(new Vector(new int[] {x, y}));
+        m.SetupGet(_m => _m.Velocity).Returns(new Vector(new int[] { x, y }));
     }
 
-    [Given(@"скорость корабля определить невозможно")] 
+    [Given(@"скорость корабля определить невозможно")]
     public void VelocityNan()
     {
         m.SetupGet(_m => _m.Velocity).Throws<NullReferenceException>();
@@ -60,11 +60,11 @@ public class MoveTest
     {
         commandExecutionLambda();
 
-        var expected = new Vector(new int[] {x, y});
+        var expected = new Vector(new int[] { x, y });
         var result = m.Object.Position;
-        
+
         Assert.Equal(expected.Coords, result.Coords);
-    }   
+    }
 
     [Then(@"возникает ошибка Exception")]
     public void ThrowingException()
@@ -72,4 +72,3 @@ public class MoveTest
         Assert.Throws<NullReferenceException>(() => commandExecutionLambda());
     }
 }
-
