@@ -2,7 +2,7 @@ using SpaceBattle.Lib;
 using TechTalk.SpecFlow;
 using Moq;
 
-namespace SpaceBattle.Test;
+namespace SpaceBattle.Tests;
 
 [Binding]
 public class VectorTest

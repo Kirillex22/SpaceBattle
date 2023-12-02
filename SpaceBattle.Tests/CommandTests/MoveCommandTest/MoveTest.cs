@@ -2,7 +2,7 @@ using SpaceBattle.Lib;
 using TechTalk.SpecFlow;
 using Moq;
 
-namespace SpaceBattleTest;
+namespace SpaceBattleTests;
 
 [Binding]
 public class MoveTest
