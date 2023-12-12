@@ -36,7 +36,7 @@ public class StartMoveCommandTest
             "Game.Command.Move",
             (object[] args) =>
             {
-                return new MoveCommand(new Mock<IMovable>().Object);
+                return new Mock<SpaceBattle.Lib.ICommand>().Object;
             }
         ).Execute();
 
