@@ -1,45 +1,47 @@
 using Hwdtech;
 using Hwdtech.Ioc;
 using System.Collections;
-using Linq;
+using System.Linq;
 
 namespace SpaceBattle.Lib;
 
-class CheckCollisionCommand
+public class CheckCollisionCommand
 {
-    private int[] _state;
-    private Searcher _searcher;
+    private int[]? _state;
+    private Func<IDictionary, int, IDictionary>? _searcher;
+    private IUObject _obj1;
+    private IUObject _obj2;
 
-    public CheckCollisionCommand(IMovable obj1, IMovable obj2)
-    {
-        var rx = obj1.Position.Coords[0] - obj2.Position.Coords[0];
-        var ry = obj1.Position.Coords[1] - obj2.Position.Coords[1];
-        var rdx = obj1.Velocity.Coords[0] - obj2.Velocity.Coords[0];
-        var rdy = obj1.Velocity.Coords[1] - obj2.Velocity.Coords[1];
-
-        _state = new int[] {rx, ry, rdx, rdy};     
-
-        _searcher = (int param, ref Hashtable currLvl) => 
-        {         
-            if(!currLvl.ContainsKey(param))
-            {
-                throw new Exception("collision interception");
-            }
-
-            else
-            {
-                currLvl = currLvl[param];
-            }
-        }
+    public CheckCollisionCommand(IUObject obj1, IUObject obj2)
+    { 
+        _obj1 = obj1;
+        _obj2 = obj2;     
     }
 
     public void Execute()
     {
-        var collisionTree = IoC.Resolve<ITree>("Game.Struct.CollisionTree");
+        var positions = new List<int[]>{
+            IoC.Resolve<int[]>("Game.UObject.GetProperty", _obj1, "Position"),
+            IoC.Resolve<int[]>("Game.UObject.GetProperty", _obj2, "Position")
+        };
+        
+        var velocities = new List<int[]>{
+            IoC.Resolve<int[]>("Game.UObject.GetProperty", _obj1, "Velocity"),      
+            IoC.Resolve<int[]>("Game.UObject.GetProperty", _obj2, "Velocity")
+        }; 
 
-        _state.Select(value => _searcher(value, collisionTree));
+        _state = positions[1].ToList().Select((value, index) => value - positions[0][index]).Concat(
+                velocities[1].ToList().Select((value, index) => value - velocities[0][index])
+        ).ToArray();
+
+        var collTree = IoC.Resolve<IDictionary>("Game.Struct.CollisionTree");
+
+        _searcher = (IDictionary currentTree, int parameter) => {
+            return currentTree.Contains(parameter) ? (IDictionary)currentTree[parameter] : throw new ArgumentException();
+        };
+
+        _state.ToList().ForEach(parameter => collTree = _searcher(collTree, parameter));
+
+        IoC.Resolve<ICommand>("Game.Event.Collision", _obj1, _obj2).Execute();   
     }
-
-    delegate void Searcher(int p, Hashtable l);
-
 }
