@@ -39,7 +39,6 @@ public class StartMoveCommandTest
                 return new Mock<SpaceBattle.Lib.ICommand>().Object;
             }
         ).Execute();
-
     }
 
     [Fact]
@@ -62,7 +61,6 @@ public class StartMoveCommandTest
         var startable = new Mock<IMoveStartable>();
         var target = new Mock<IUObject>();
         var initialValues = new Dictionary<string, object> {{"position", new object()}};
-
         var settedValues = new Dictionary<string, object>();
 
         startable.SetupGet(s => s.InitialValues).Returns(initialValues);
@@ -94,7 +92,6 @@ public class StartMoveCommandTest
 
         startable.SetupGet(s => s.InitialValues).Returns(initialValues);
         startable.SetupGet(s => s.Target).Returns(target.Object);
-        startable.SetupGet(s => s.Command).Returns("Move");
 
         target.Setup(
             t => t.SetProperty(
@@ -111,9 +108,8 @@ public class StartMoveCommandTest
     [Fact]
     public void InitialValuesGetException()
     {
-        var startable = new Mock<IMoveStartable>();
+        var startable = new Mock<IMoveStartable>();   
         startable.SetupGet(s => s.InitialValues).Throws(new Exception());
-
         var smc = new StartMoveCommand(startable.Object);
 
         Assert.Throws<Exception>(() => smc.Execute());
@@ -123,10 +119,11 @@ public class StartMoveCommandTest
     public void TargetGetException()
     {
         var startable = new Mock<IMoveStartable>();
-        startable.SetupGet(s => s.Target).Throws(new Exception());
         var initialValues = new Dictionary<string, object> {{"position", new object()}};
 
+        startable.SetupGet(s => s.Target).Throws(new Exception());
         startable.SetupGet(s => s.InitialValues).Returns(initialValues);
+
         var smc = new StartMoveCommand(startable.Object);
 
         Assert.Throws<Exception>(() => smc.Execute());
@@ -155,5 +152,4 @@ public class StartMoveCommandTest
 
         Assert.Throws<Exception>(() => smc.Execute());
     }
-
 }
