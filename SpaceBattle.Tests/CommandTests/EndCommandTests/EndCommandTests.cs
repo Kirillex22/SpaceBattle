@@ -64,7 +64,6 @@ public class EndMoveCommnandTest
         MoqSecondCommand.Verify(i=>i.Execute(), Times.Never);
         BridgeCommand.Inject(MoqSecondCommand.Object);
         BridgeCommand.Execute();
-
         MoqSecondCommand.Verify(i=>i.Execute(), Times.Once);
     }
 
