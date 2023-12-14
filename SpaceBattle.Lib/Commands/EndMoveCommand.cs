@@ -3,7 +3,7 @@ using Hwdtech.Ioc;
 
 namespace SpaceBattle.Lib;
 
-public class EndMoveCommand: ICommand
+public class EndMoveCommand : ICommand
 {
     private IMoveCommandStopable _end;
 
