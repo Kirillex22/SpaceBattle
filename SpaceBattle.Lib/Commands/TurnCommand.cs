@@ -1,4 +1,5 @@
 ﻿namespace SpaceBattle.Lib;
+
 public class Turn : ICommand
 {
     private ITurnable _turnable;
