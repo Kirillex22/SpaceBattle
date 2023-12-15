@@ -104,3 +104,4 @@ public class CollisionCheckCommandTest
         Assert.Equal("empty uobject", exc.Message);            
     }
 }
+

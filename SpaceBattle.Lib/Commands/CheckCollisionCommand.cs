@@ -45,3 +45,4 @@ public class CheckCollisionCommand
         IoC.Resolve<ICommand>("Game.Event.Collision", _obj1, _obj2).Execute();   
     }
 }
+
