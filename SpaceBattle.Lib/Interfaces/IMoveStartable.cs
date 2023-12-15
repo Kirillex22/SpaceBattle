@@ -6,3 +6,4 @@ public interface IMoveStartable
     public string Command {get;}
     public IDictionary<string, object> InitialValues {get;}
 }
+

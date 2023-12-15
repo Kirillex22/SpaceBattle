@@ -153,3 +153,4 @@ public class StartMoveCommandTest
         Assert.Throws<Exception>(() => smc.Execute());
     }
 }
+
