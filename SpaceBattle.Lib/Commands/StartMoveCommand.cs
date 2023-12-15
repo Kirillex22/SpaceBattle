@@ -9,7 +9,7 @@ public class StartMoveCommand : ICommand
 
     public StartMoveCommand(IMoveStartable startable)
     {
-       _startable = startable;
+        _startable = startable;
     }
 
     public void Execute()
@@ -21,11 +21,12 @@ public class StartMoveCommand : ICommand
             value.Value
         ));
 
-        string cmdName = _startable.Command;  
-        var bridgeCmd = IoC.Resolve<ICommand>($"Game.Command.Inject.{cmdName}", _startable.Target);
-        
+        string cmdName = _startable.Command;
+
+        var cmd = IoC.Resolve<ICommand>($"Game.Command.{cmdName}", _startable.Target);
+        var bridgeCmd = IoC.Resolve<ICommand>("Game.Command.Inject", cmd);
         IoC.Resolve<object>("Game.IUObject.SetProperty", _startable.Target, "command", bridgeCmd);
         IoC.Resolve<IQueue>("Game.Queue").Push(bridgeCmd);
-    }  
+    }
 }
 
