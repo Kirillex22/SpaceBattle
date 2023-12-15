@@ -169,4 +169,3 @@ testRunner.Then("возникает IndexOutOfRangeException", ((string)(null)),
 }
 #pragma warning restore
 #endregion
-
