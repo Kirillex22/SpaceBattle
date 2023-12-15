@@ -105,3 +105,5 @@ public class CollisionCheckCommandTest
     }
 }
 
+
+>>>>>>> 44cdc65e02dc1c99490587d92c476fb19957a0cb

@@ -42,6 +42,7 @@ public class CheckCollisionCommand
 
         _state.ToList().ForEach(parameter => collTree = _searcher(collTree, parameter));
 
+
         IoC.Resolve<ICommand>("Game.Event.Collision", _obj1, _obj2).Execute();   
     }
 }
