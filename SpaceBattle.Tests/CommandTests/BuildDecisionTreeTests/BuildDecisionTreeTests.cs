@@ -6,9 +6,9 @@ using Hwdtech.Ioc;
 
 namespace SpaceBattle.Tests;
 
-public class BuildTreeTests
+public class BuildDecisionTests
 {
-    public BuildTreeTests()
+    public BuildDecisionTreeTests()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
         IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))).Execute();
