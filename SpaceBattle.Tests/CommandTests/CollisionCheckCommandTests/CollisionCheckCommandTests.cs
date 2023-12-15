@@ -97,12 +97,12 @@ public class CollisionCheckCommandTest
         var obj1 = new Mock<IUObject>();
         var obj2 = new Mock<IUObject>();
 
-        obj1.Setup(o => o.GetProperty(It.IsAny<string>())).Returns((string k) => throw new Exception("empty"));
+        obj1.Setup(o => o.GetProperty(It.IsAny<string>())).Returns((string k) => throw new Exception("empty "));
 
         var ccm = new CheckCollisionCommand(obj1.Object, obj2.Object);
 
         var exc = Assert.Throws<Exception>(() => ccm.Execute());
-        Assert.Equal("empty", exc.Message);
+        Assert.Equal("empty ", exc.Message);
     }
 }
 
