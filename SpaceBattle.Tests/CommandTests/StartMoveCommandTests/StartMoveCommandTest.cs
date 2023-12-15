@@ -31,12 +31,18 @@ public class StartMoveCommandTest
             }
         ).Execute();
 
+        var initCmd = new Mock<SpaceBattle.Lib.ICommand>();
+        var bridgeCmd = new BridgeCommand(initCmd.Object);
+
         IoC.Resolve<Hwdtech.ICommand>(
             "IoC.Register",
-            "Game.Command.Move",
+            "Game.Command.Inject.Move",
             (object[] args) =>
             {
-                return new Mock<SpaceBattle.Lib.ICommand>().Object;
+                var target = (IUObject)args[0];
+                var moveCmd = new Mock<SpaceBattle.Lib.ICommand>();
+                bridgeCmd.Inject(moveCmd.Object);
+                return bridgeCmd;
             }
         ).Execute();
     }
