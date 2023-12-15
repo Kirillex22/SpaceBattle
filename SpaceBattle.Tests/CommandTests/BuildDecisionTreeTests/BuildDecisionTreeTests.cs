@@ -58,3 +58,4 @@ public class BuildTreeTests
         Assert.Equal(exception.Message, "This file is not readable");
     }
 }
+

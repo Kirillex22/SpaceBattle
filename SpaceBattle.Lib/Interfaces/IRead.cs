@@ -4,3 +4,4 @@ public interface IRead
 {
     public List<int[]> ReadFile();
 }
+
