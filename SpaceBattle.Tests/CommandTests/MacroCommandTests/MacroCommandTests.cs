@@ -73,3 +73,4 @@ public class MacroCommandTests
         Assert.Equal("run error", exc.Message);
     }
 }
+
