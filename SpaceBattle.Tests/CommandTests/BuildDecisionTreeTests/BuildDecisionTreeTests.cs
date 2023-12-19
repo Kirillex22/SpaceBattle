@@ -14,7 +14,8 @@ public class BuildTreeTests
         IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))).Execute();
 
         var DecisionTree = new Dictionary<int, object>();
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.BuildDecisionTree", (object[] args) => {
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.BuildDecisionTree", (object[] args) =>
+        {
             return DecisionTree;
         }).Execute();
     }
@@ -26,7 +27,7 @@ public class BuildTreeTests
 
         string path = "../../../test.txt";
         var vectors = File.ReadAllLines(path).Select(line => line.Split().Select(int.Parse).ToArray()).ToList();
-        
+
         read.Setup(i => i.ReadFile()).Returns(vectors);
 
         var BuildTree = new BuildDecisionTree(read.Object);
@@ -53,7 +54,7 @@ public class BuildTreeTests
         var read = new Mock<IRead>();
         read.Setup(i => i.ReadFile()).Returns(() => throw new Exception("This file is not readable"));
         var BuildTree = new BuildDecisionTree(read.Object);
-        
+
         var exception = Assert.Throws<Exception>(BuildTree.Execute);
         Assert.Equal(exception.Message, "This file is not readable");
     }
