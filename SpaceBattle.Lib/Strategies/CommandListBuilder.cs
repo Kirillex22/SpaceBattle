@@ -3,7 +3,7 @@ using Hwdtech;
 using Hwdtech.Ioc;
 
 namespace SpaceBattle.Lib;
-public class CommandListBuilder
+public class CommandListBuilder : IStrategy
 {
     private string _dependency;
 
@@ -12,7 +12,7 @@ public class CommandListBuilder
         _dependency = dependency;
     }
 
-    public List<ICommand> BuildCommandList()
+    public object Call()
     {
         var commands = new List<ICommand>();
         var commandsNames = IoC.Resolve<string[]>(_dependency);

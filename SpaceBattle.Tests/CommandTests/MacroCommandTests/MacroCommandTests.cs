@@ -39,9 +39,9 @@ public class MacroCommandTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand3", (object[] args) => cmd3.Object).Execute();
 
         var cmdbuilder = new CommandListBuilder("Game.MacroCommandNames.DoSomething");
-        var cmds = cmdbuilder.BuildCommandList();
+        var cmds = cmdbuilder.Call();
 
-        var macrocmd = new MacroCommand(cmds);
+        var macrocmd = new MacroCommand((List<SpaceBattle.Lib.ICommand>)cmds);
 
         macrocmd.Execute();
 
@@ -64,9 +64,9 @@ public class MacroCommandTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand3", (object[] args) => cmd3.Object).Execute();
 
         var cmdbuilder = new CommandListBuilder("Game.MacroCommandNames.DoSomething");
-        var cmds = cmdbuilder.BuildCommandList();
+        var cmds = cmdbuilder.Call();
 
-        var macrocmd = new MacroCommand(cmds);
+        var macrocmd = new MacroCommand((List<SpaceBattle.Lib.ICommand>)cmds);
 
         var exc = Assert.Throws<Exception>(() => macrocmd.Execute());
 
