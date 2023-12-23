@@ -21,8 +21,11 @@ public class ExceptionHandlerTests
     [Fact]
     public void SuccefulCall()
     {
-        var empty = new EmptyCommand();
-        var cmd = new Mock<SpaceBattle.Lib.ICommand>();
+        var emptyCmd = new EmptyCommand();
+        var checkColCmd = new CheckCollisionCommand(
+            new Mock<IUObject>().Object, new Mock<IUObject>().Object
+        );
+
         var exc = new Exception();
 
         var resolveCmd1 = new Mock<SpaceBattle.Lib.ICommand>();
@@ -44,8 +47,11 @@ public class ExceptionHandlerTests
 
         var excHandlerFndr = new ExceptionHandlerFinder();
 
-        excHandlerFndr.Call(empty, exc).Execute();
-        //excHandlerFndr.Call(cmd.Object, exc).Execute();
+        var res1 = excHandlerFndr.Call(emptyCmd, exc);
+        var res2 = excHandlerFndr.Call(checkColCmd, exc);
+
+        res1.Execute();
+        res2.Execute();
 
         Mock.Verify(resolveCmd1, resolveCmd2);
     }
