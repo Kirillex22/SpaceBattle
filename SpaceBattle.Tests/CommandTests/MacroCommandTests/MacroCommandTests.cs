@@ -41,7 +41,7 @@ public class MacroCommandTests
         var cmdbuilder = new CommandListBuilder("Game.MacroCommandNames.DoSomething");
         var cmds = cmdbuilder.Call();
 
-        var macrocmd = new MacroCommand((List<SpaceBattle.Lib.ICommand>)cmds);
+        var macrocmd = new MacroCommand(cmds);
 
         macrocmd.Execute();
 
@@ -66,7 +66,7 @@ public class MacroCommandTests
         var cmdbuilder = new CommandListBuilder("Game.MacroCommandNames.DoSomething");
         var cmds = cmdbuilder.Call();
 
-        var macrocmd = new MacroCommand((List<SpaceBattle.Lib.ICommand>)cmds);
+        var macrocmd = new MacroCommand(cmds);
 
         var exc = Assert.Throws<Exception>(() => macrocmd.Execute());
 
