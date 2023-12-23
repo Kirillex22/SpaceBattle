@@ -38,8 +38,8 @@ public class MacroCommandTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand2", (object[] args) => cmd2.Object).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand3", (object[] args) => cmd3.Object).Execute();
 
-        var cmdbuilder = new CommandListBuilder("Game.MacroCommandNames.DoSomething");
-        var cmds = cmdbuilder.Call();
+        var cmdbuilder = new CommandListBuilder();
+        var cmds = cmdbuilder.Call("Game.MacroCommandNames.DoSomething");
 
         var macrocmd = new MacroCommand(cmds);
 
@@ -63,8 +63,8 @@ public class MacroCommandTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand2", (object[] args) => cmd2.Object).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand3", (object[] args) => cmd3.Object).Execute();
 
-        var cmdbuilder = new CommandListBuilder("Game.MacroCommandNames.DoSomething");
-        var cmds = cmdbuilder.Call();
+        var cmdbuilder = new CommandListBuilder();
+        var cmds = cmdbuilder.Call("Game.MacroCommandNames.DoSomething");
 
         var macrocmd = new MacroCommand(cmds);
 
