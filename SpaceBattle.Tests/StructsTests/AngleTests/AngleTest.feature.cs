@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace SpaceBattle.Tests.StructsTests.VectorTest
+namespace SpaceBattle.Tests.StructsTests.AngleTests
 {
     using TechTalk.SpecFlow;
     using System;
@@ -19,21 +19,21 @@ namespace SpaceBattle.Tests.StructsTests.VectorTest
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [Xunit.TraitAttribute("Category", "lol")]
-    public partial class ВекторFeature : object, Xunit.IClassFixture<ВекторFeature.FixtureData>, System.IDisposable
+    [Xunit.TraitAttribute("Category", "Angle")]
+    public partial class КлассУголFeature : object, Xunit.IClassFixture<КлассУголFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = new string[] {
-                "lol"};
+                "Angle"};
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "VectorTest.feature"
+#line 1 "AngleTest.feature"
 #line hidden
         
-        public ВекторFeature(ВекторFeature.FixtureData fixtureData, SpaceBattle_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public КлассУголFeature(КлассУголFeature.FixtureData fixtureData, SpaceBattle_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -42,7 +42,7 @@ namespace SpaceBattle.Tests.StructsTests.VectorTest
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("ru-RU"), "StructsTests/VectorTest", "вектор", null, ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("ru-RU"), "StructsTests/AngleTests", "Класс угол", null, ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -82,14 +82,14 @@ namespace SpaceBattle.Tests.StructsTests.VectorTest
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="векторы свободно складываются")]
-        [Xunit.TraitAttribute("FeatureTitle", "вектор")]
-        [Xunit.TraitAttribute("Description", "векторы свободно складываются")]
-        public void ВекторыСвободноСкладываются()
+        [Xunit.SkippableFactAttribute(DisplayName="Углы свободно складываются")]
+        [Xunit.TraitAttribute("FeatureTitle", "Класс угол")]
+        [Xunit.TraitAttribute("Description", "Углы свободно складываются")]
+        public void УглыСвободноСкладываются()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("векторы свободно складываются", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Углы свободно складываются", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -101,29 +101,29 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
-testRunner.Given("вектор с координатами (1, 1)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
+testRunner.Given("имеется угол (45) градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
 #line hidden
 #line 6
-testRunner.And("вектор с координатами (1, 2)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
+testRunner.And("имеется угол (225) градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
 #line hidden
 #line 7
-testRunner.When("векторы складываются", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Когда ");
+testRunner.When("происходит сложение векторов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Когда ");
 #line hidden
 #line 8
-testRunner.Then("получаем вектор (2, 3)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Тогда ");
+testRunner.Then("получается угол (270) градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Тогда ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="векторы имеют разную размерность")]
-        [Xunit.TraitAttribute("FeatureTitle", "вектор")]
-        [Xunit.TraitAttribute("Description", "векторы имеют разную размерность")]
-        public void ВекторыИмеютРазнуюРазмерность()
+        [Xunit.SkippableFactAttribute(DisplayName="При сложении углов с разным разбиением возникает ошибка")]
+        [Xunit.TraitAttribute("FeatureTitle", "Класс угол")]
+        [Xunit.TraitAttribute("Description", "При сложении углов с разным разбиением возникает ошибка")]
+        public void ПриСложенииУгловСРазнымРазбиениемВозникаетОшибка()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("векторы имеют разную размерность", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("При сложении углов с разным разбиением возникает ошибка", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 10
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -135,16 +135,16 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 11
-testRunner.Given("вектор с координатами (1, 2, 3)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
+testRunner.Given("имеется угол (45) градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
 #line hidden
 #line 12
-testRunner.And("вектор с координатами (1, 4)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
+testRunner.And("имеется другой угол (72) градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
 #line hidden
 #line 13
-testRunner.When("векторы складываются", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Когда ");
+testRunner.When("происходит сложение векторов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Когда ");
 #line hidden
 #line 14
-testRunner.Then("возникает IndexOutOfRangeException", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Тогда ");
+testRunner.Then("возникает ошибка Exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Тогда ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -157,12 +157,12 @@ testRunner.Then("возникает IndexOutOfRangeException", ((string)(null)),
             
             public FixtureData()
             {
-                ВекторFeature.FeatureSetup();
+                КлассУголFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                ВекторFeature.FeatureTearDown();
+                КлассУголFeature.FeatureTearDown();
             }
         }
     }

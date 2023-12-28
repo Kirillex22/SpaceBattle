@@ -31,7 +31,7 @@ public class VectorTest
         vectors.Add(new Vector(new int[] { x, y, z }));
     }
 
-    [When(@"происходит сложение векторов")]
+    [When(@"векторы складываются")]
     public void Sum()
     {
         vectorSumLambda = () => operationResult = vectors[0] + vectors[1];

@@ -66,7 +66,7 @@ public class MoveTest
         Assert.Equal(expected.Coords, result.Coords);
     }
 
-    [Then(@"возникает ошибка Exception")]
+    [Then(@"выбрасывается ошибка Exception")]
     public void ThrowingException()
     {
         Assert.Throws<NullReferenceException>(() => commandExecutionLambda());
