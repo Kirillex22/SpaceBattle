@@ -12,7 +12,7 @@ public class MacroCommandTests
         new InitScopeBasedIoCImplementationCommand().Execute();
         IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))).Execute();
 
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.MacroCommandNames.DoSomething", (object[] args) =>
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.MacroCommandNames.SimpleMacroCommand", (object[] args) =>
         {
             return new string[]
             {
@@ -39,11 +39,18 @@ public class MacroCommandTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand3", (object[] args) => cmd3.Object).Execute();
 
         var cmdbuilder = new CommandListBuilder();
-        var cmds = cmdbuilder.Call("Game.MacroCommandNames.DoSomething");
 
-        var macrocmd = new MacroCommand(cmds);
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.MacroCommand.SimpleMacroCommand", (object[] args) =>
+        {
+            var cmds = cmdbuilder.Call("Game.MacroCommandNames.SimpleMacroCommand");
+            var macrocmd = new MacroCommand(cmds);
+            return macrocmd;
 
-        macrocmd.Execute();
+        }).Execute();
+
+        var macro = IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.MacroCommand.SimpleMacroCommand");
+
+        macro.Execute();
 
         Mock.Verify(cmd1, cmd2, cmd3);
     }
@@ -64,11 +71,18 @@ public class MacroCommandTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand3", (object[] args) => cmd3.Object).Execute();
 
         var cmdbuilder = new CommandListBuilder();
-        var cmds = cmdbuilder.Call("Game.MacroCommandNames.DoSomething");
 
-        var macrocmd = new MacroCommand(cmds);
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.MacroCommand.SimpleMacroCommand", (object[] args) =>
+        {
+            var cmds = cmdbuilder.Call("Game.MacroCommandNames.SimpleMacroCommand");
+            var macrocmd = new MacroCommand(cmds);
+            return macrocmd;
 
-        var exc = Assert.Throws<Exception>(() => macrocmd.Execute());
+        }).Execute();
+
+        var macro = IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.MacroCommand.SimpleMacroCommand");
+
+        var exc = Assert.Throws<Exception>(() => macro.Execute());
 
         Assert.Equal("run error", exc.Message);
     }
