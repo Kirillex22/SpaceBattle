@@ -5,11 +5,11 @@ namespace SpaceBattle.Lib;
 
 public class RegisterExcHandler : ICommand
 {
-    private Type _cmd;
-    private Type _exc;
+    private object _cmd;
+    private object _exc;
     private ICommand _handler;
 
-    public RegisterExcHandler(Type cmd, Type exc, ICommand handler)
+    public RegisterExcHandler(object cmd, object exc, ICommand handler)
     {
         _cmd = cmd;
         _exc = exc;
@@ -20,9 +20,9 @@ public class RegisterExcHandler : ICommand
     {
         var BuildExceptionTree = IoC.Resolve<Dictionary<object, object>>("Game.Get.ExceptionTree");
         var ExceptionTree = BuildExceptionTree;
-        ExceptionTree.TryAdd(_cmd, new Dictionary<object, object>());
-        ExceptionTree = (Dictionary<object, object>)ExceptionTree[_cmd];
-        ExceptionTree.TryAdd(_exc, _handler);
+        ExceptionTree.TryAdd(_cmd.ToString(), new Dictionary<object, object>());
+        ExceptionTree = (Dictionary<object, object>)ExceptionTree[_cmd.ToString()];
+        ExceptionTree.TryAdd(_exc.ToString(), _handler);
     }
 }
 
