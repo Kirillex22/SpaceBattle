@@ -28,6 +28,7 @@ public class MacroCommandTests
     [Fact]
     public void SuccesfulMacroCommandExecuting()
     {
+        var target = new Mock<IUObject>();
         var cmd1 = new Mock<SpaceBattle.Lib.ICommand>();
         var cmd2 = new Mock<SpaceBattle.Lib.ICommand>();
         var cmd3 = new Mock<SpaceBattle.Lib.ICommand>();
@@ -40,7 +41,7 @@ public class MacroCommandTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand2", (object[] args) => cmd2.Object).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand3", (object[] args) => cmd3.Object).Execute();
 
-        var macro = IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.MacroCommand.Create", "Game.MacroCommandNames.SimpleMacroCommand");
+        var macro = IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.MacroCommand.Create", "Game.MacroCommandNames.SimpleMacroCommand", target.Object);
 
         macro.Execute();
 
@@ -50,6 +51,8 @@ public class MacroCommandTests
     [Fact]
     public void SomeCommandDoesntExecuting()
     {
+        var target = new Mock<IUObject>();
+
         var cmd1 = new Mock<SpaceBattle.Lib.ICommand>();
         var cmd2 = new Mock<SpaceBattle.Lib.ICommand>();
         var cmd3 = new Mock<SpaceBattle.Lib.ICommand>();
@@ -62,7 +65,7 @@ public class MacroCommandTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand2", (object[] args) => cmd2.Object).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand3", (object[] args) => cmd3.Object).Execute();
 
-        var macro = IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.MacroCommand.Create", "Game.MacroCommandNames.SimpleMacroCommand");
+        var macro = IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.MacroCommand.Create", "Game.MacroCommandNames.SimpleMacroCommand", target.Object);
         var exc = Assert.Throws<Exception>(() => macro.Execute());
 
         Assert.Equal("run error", exc.Message);
