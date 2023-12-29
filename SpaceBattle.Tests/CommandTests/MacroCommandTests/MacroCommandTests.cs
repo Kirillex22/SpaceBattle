@@ -21,6 +21,8 @@ public class MacroCommandTests
                 "Game.Command.SomeCommand3"
             };
         }).Execute();
+
+        new MacroCommandBuilder().Call();
     }
 
     [Fact]
@@ -38,17 +40,7 @@ public class MacroCommandTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand2", (object[] args) => cmd2.Object).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand3", (object[] args) => cmd3.Object).Execute();
 
-        var cmdbuilder = new CommandListBuilder();
-
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.MacroCommand.SimpleMacroCommand", (object[] args) =>
-        {
-            var cmds = cmdbuilder.Call("Game.MacroCommandNames.SimpleMacroCommand");
-            var macrocmd = new MacroCommand(cmds);
-            return macrocmd;
-
-        }).Execute();
-
-        var macro = IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.MacroCommand.SimpleMacroCommand");
+        var macro = IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.MacroCommand.Create", "Game.MacroCommandNames.SimpleMacroCommand");
 
         macro.Execute();
 
@@ -70,18 +62,7 @@ public class MacroCommandTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand2", (object[] args) => cmd2.Object).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command.SomeCommand3", (object[] args) => cmd3.Object).Execute();
 
-        var cmdbuilder = new CommandListBuilder();
-
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.MacroCommand.SimpleMacroCommand", (object[] args) =>
-        {
-            var cmds = cmdbuilder.Call("Game.MacroCommandNames.SimpleMacroCommand");
-            var macrocmd = new MacroCommand(cmds);
-            return macrocmd;
-
-        }).Execute();
-
-        var macro = IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.MacroCommand.SimpleMacroCommand");
-
+        var macro = IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.MacroCommand.Create", "Game.MacroCommandNames.SimpleMacroCommand");
         var exc = Assert.Throws<Exception>(() => macro.Execute());
 
         Assert.Equal("run error", exc.Message);
