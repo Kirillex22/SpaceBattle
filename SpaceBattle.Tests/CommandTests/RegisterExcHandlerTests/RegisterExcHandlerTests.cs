@@ -26,15 +26,15 @@ public class RegisterExcHandlerTests
         var exc = typeof(ArgumentException);
         var MoqCommand = new Mock<SpaceBattle.Lib.ICommand>();
 
-        var NewExcHandler = new RegisterExcHandler(MoqCommand.Object, cmd.ToString(), exc.ToString());
+        var NewExcHandler = new RegisterExcHandler(MoqCommand.Object, cmd, exc);
         NewExcHandler.Execute();
 
         var ExceptionTree = IoC.Resolve<IDictionary<object, object>>("Game.Get.ExceptionTree");
         Assert.NotNull(ExceptionTree);
-        Assert.True(ExceptionTree.ContainsKey(cmd.ToString()));
+        Assert.True(ExceptionTree.ContainsKey(cmd));
 
-        var NextExceptionTree = (IDictionary<object, object>)ExceptionTree[cmd.ToString()];
-        Assert.True(NextExceptionTree.ContainsKey(exc.ToString()));
+        var NextExceptionTree = (IDictionary<object, object>)ExceptionTree[cmd];
+        Assert.True(NextExceptionTree.ContainsKey(exc));
     }
 
     [Fact]
@@ -43,7 +43,7 @@ public class RegisterExcHandlerTests
         var NewExc = typeof(ArgumentException);
         var MoqCommand = new Mock<SpaceBattle.Lib.ICommand>();
 
-        var NewExcHandler = new RegisterExcHandler(MoqCommand.Object, exc: NewExc.ToString());
+        var NewExcHandler = new RegisterExcHandler(MoqCommand.Object, exc: NewExc);
         NewExcHandler.Execute();
 
         var ExceptionTree = IoC.Resolve<IDictionary<object, object>>("Game.Get.ExceptionTree");
@@ -51,7 +51,7 @@ public class RegisterExcHandlerTests
         Assert.True(ExceptionTree.ContainsKey("default"));
 
         var NextExceptionTree = (IDictionary<object, object>)ExceptionTree["default"];
-        Assert.True(NextExceptionTree.ContainsKey(NewExc.ToString()));
+        Assert.True(NextExceptionTree.ContainsKey(NewExc));
     }
 
     [Fact]
@@ -60,14 +60,14 @@ public class RegisterExcHandlerTests
         var TurnCommand = typeof(Turn);
         var MoqCommand = new Mock<SpaceBattle.Lib.ICommand>();
 
-        var NewExcHandler = new RegisterExcHandler(MoqCommand.Object, cmd: TurnCommand.ToString());
+        var NewExcHandler = new RegisterExcHandler(MoqCommand.Object, cmd: TurnCommand);
         NewExcHandler.Execute();
 
         var ExceptionTree = IoC.Resolve<IDictionary<object, object>>("Game.Get.ExceptionTree");
         Assert.NotNull(ExceptionTree);
-        Assert.True(ExceptionTree.ContainsKey(TurnCommand.ToString()));
+        Assert.True(ExceptionTree.ContainsKey(TurnCommand));
 
-        var NextExceptionTree = (IDictionary<object, object>)ExceptionTree[TurnCommand.ToString()];
+        var NextExceptionTree = (IDictionary<object, object>)ExceptionTree[TurnCommand];
         Assert.True(NextExceptionTree.ContainsKey("default"));
     }
 

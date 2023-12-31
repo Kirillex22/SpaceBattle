@@ -5,14 +5,14 @@ namespace SpaceBattle.Lib;
 
 public class RegisterExcHandler : ICommand
 {
-    private string _cmd;
-    private string _exc;
+    private object _cmd;
+    private object _exc;
     private ICommand _handler;
 
-    public RegisterExcHandler(ICommand handler, string cmd = "default", string exc = "default")
+    public RegisterExcHandler(ICommand handler, object cmd = null, object exc = null)
     {
-        _cmd = cmd;
-        _exc = exc;
+        _cmd = cmd ?? "default";
+        _exc = exc ?? "default";
         _handler = handler;
     } 
 
