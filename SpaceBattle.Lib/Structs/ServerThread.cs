@@ -1,27 +1,54 @@
+using System.Collections.Concurrent;
+using Hwdtech;
+
 namespace SpaceBattle.Lib;
 
 public class ServerThread
 {
-    private Action endAction;
-    private bool stop;
-    public BlockingCollection<ICommand> ThreadQueue { get; }
+    private Action _behaviour;
+    private bool _stop;
+    private BlockingCollection<ICommand> _threadQueue;
+    private Thread _thread;
 
-    public ServerThread()
+    public ServerThread(BlockingCollection<ICommand> threadQueue)
     {
-        endAction = () => ();
-        stop = true;
+        _stop = false;
+        _threadQueue = threadQueue;
+
+        _behaviour = () =>
+        {
+            var cmd = _threadQueue.Take();
+            try
+            {
+                cmd.Execute();
+            }
+            catch (Exception e)
+            {
+                IoC.Resolve<ICommand>("Exception.Handle", cmd, e).Execute();
+            }
+        };
+
+        _thread = new Thread(() =>
+        {
+            while (!_stop)
+            {
+                _behaviour();
+            }
+        });
     }
 
     public void Start()
     {
-        stop = false;
+        _thread.Start();
+    }
 
-        while (!stop)
-        {
-            ICommand cmd = ThreadQueue.Take();
+    internal void Stop()
+    {
+        _stop = true;
+    }
 
-            cmd.Execute();
-        }
-
+    internal void ChangeBehaviour(Action newBeh)
+    {
+        _behaviour = newBeh;
     }
 }
