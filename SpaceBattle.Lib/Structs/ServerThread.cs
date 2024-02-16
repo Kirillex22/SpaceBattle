@@ -42,6 +42,11 @@ public class ServerThread
         _thread.Start();
     }
 
+    public void Send(ICommand cmd)
+    {
+        _threadQueue.Add(cmd);
+    }
+
     internal void Stop()
     {
         _stop = true;
