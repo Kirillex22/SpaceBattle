@@ -3,7 +3,7 @@ using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
-class SoftStopCommand : ICommand
+public class SoftStopCommand : ICommand
 {
     private int _threadId;
     private Action _exitAction = () => { };
@@ -20,9 +20,8 @@ class SoftStopCommand : ICommand
 
     public void Execute()
     {
-        var threadQueue = IoC.Resolve<BlockingCollection<ICommand>>($"Game.Struct.ServerThreadQueue_{_threadId}");
-
-        var thread = IoC.Resolve<Dictionary<int, ServerThread>>($"Game.Struct.ServerThread.List")[_threadId];
+        var thread = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[_threadId];
+        var threadQueue = thread.GetQueue();
 
         thread.ChangeBehaviour(() =>
         {
@@ -40,8 +39,9 @@ class SoftStopCommand : ICommand
             }
             catch (Exception e)
             {
-                IoC.Resolve<ICommand>("Exception.Handle", cmd, e).Execute();
+                IoC.Resolve<ICommand>("Exception.Handler", cmd, e).Execute();
             }
         });
     }
 }
+

@@ -2,7 +2,7 @@ using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
-class CreateThreadList
+public class CreateThreadList
 {
     public void Call()
     {

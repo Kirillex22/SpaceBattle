@@ -1,14 +1,18 @@
+using System.Runtime.Intrinsics.X86;
 using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
-class SoftStopThread
+public class SoftStopThread
 {
     public void Call()
     {
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Struct.ServerThread.HardStop", (object[] args) =>
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Struct.ServerThread.SoftStop", (object[] args) =>
         {
-            IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[(int)args[0]].Send(new SoftStopCommand((int)args[0]));
+            var id = (int)args[0];
+            var ss = new SoftStopCommand(id);
+            IoC.Resolve<object>("Game.Struct.ServerThread.SendCommand", id, ss);
+            return new object();
         }).Execute();
     }
 }

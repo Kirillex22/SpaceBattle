@@ -2,13 +2,17 @@ using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
-class HardStopThread
+public class HardStopThread
 {
     public void Call()
     {
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Struct.ServerThread.HardStop", (object[] args) =>
         {
-            IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[(int)args[0]].Send(new HardStopCommand((int)args[0]));
+            var id = (int)args[0];
+            var hs = new HardStopCommand(id, () => { });
+            var cmd = IoC.Resolve<object>("Game.Struct.ServerThread.SendCommand", id, hs);
+            return cmd;
         }).Execute();
     }
 }
+

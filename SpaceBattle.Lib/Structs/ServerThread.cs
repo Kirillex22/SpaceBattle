@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using Hwdtech;
+using Hwdtech.Ioc;
 
 namespace SpaceBattle.Lib;
 
@@ -24,7 +25,7 @@ public class ServerThread
             }
             catch (Exception e)
             {
-                IoC.Resolve<ICommand>("Exception.Handle", cmd, e).Execute();
+                IoC.Resolve<ICommand>("Exception.Handler", cmd, e).Execute();
             }
         };
 
@@ -42,18 +43,24 @@ public class ServerThread
         _thread.Start();
     }
 
-    public void Send(ICommand cmd)
+    internal BlockingCollection<ICommand> GetQueue()
     {
-        _threadQueue.Add(cmd);
+        return _threadQueue;
     }
 
     internal void Stop()
     {
+        Console.Write("SUCCESFUL STOPPED");
         _stop = true;
     }
 
     internal void ChangeBehaviour(Action newBeh)
     {
         _behaviour = newBeh;
+    }
+
+    public bool Status()
+    {
+        return _stop;
     }
 }
