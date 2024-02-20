@@ -12,7 +12,11 @@ public class ThreadStopCommandsTest
         new InitScopeBasedIoCImplementationCommand().Execute();
         IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))).Execute();
 
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Exception.Handler", (object[] args) => new EmptyCommand()).Execute();
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Exception.Handler", (object[] args) =>
+        {
+            return new EmptyCommand();
+
+        }).Execute();
 
         var cmd = new Mock<SpaceBattle.Lib.ICommand>();
         cmd.Setup(c => c.Execute()).Verifiable();
@@ -27,8 +31,6 @@ public class ThreadStopCommandsTest
     [Fact]
     public void SuccesfulHardStop()
     {
-        new InitScopeBasedIoCImplementationCommand().Execute();
-
         var threadList = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List");
 
         IoC.Resolve<object>("Game.Struct.ServerThread.CreateAndStart", 1, () => { });
@@ -41,8 +43,8 @@ public class ThreadStopCommandsTest
             new EmptyCommand()
         };
 
-        //cmds.ForEach(c => IoC.Resolve<object>("Game.Struct.ServerThread.SendCommand", 1, c));
-        //cmds.ForEach(c => IoC.Resolve<object>("Game.Struct.ServerThread.SendCommand", 2, c));
+        cmds.ForEach(c => IoC.Resolve<object>("Game.Struct.ServerThread.SendCommand", 1, c));
+        cmds.ForEach(c => IoC.Resolve<object>("Game.Struct.ServerThread.SendCommand", 2, c));
 
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 1).Execute();
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 2).Execute();

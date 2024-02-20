@@ -4,8 +4,8 @@ namespace SpaceBattle.Lib;
 
 public class SendCmdCommand : ICommand
 {
-    int _threadId;
-    ICommand _cmd;
+    private int _threadId;
+    private ICommand _cmd;
     public SendCmdCommand(int threadId, ICommand cmd)
     {
         _threadId = threadId;
@@ -14,6 +14,6 @@ public class SendCmdCommand : ICommand
 
     public void Execute()
     {
-        IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[_threadId].GetQueue().Add(_cmd);
+        IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[_threadId].ThreadQueue.Add(_cmd);
     }
 }

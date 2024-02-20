@@ -1,4 +1,3 @@
-using System.Collections.Concurrent;
 using Hwdtech;
 
 namespace SpaceBattle.Lib;
@@ -21,11 +20,11 @@ public class SoftStopCommand : ICommand
     public void Execute()
     {
         var thread = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[_threadId];
-        var threadQueue = thread.GetQueue();
+        var threadQueue = thread.ThreadQueue;
 
         thread.ChangeBehaviour(() =>
         {
-            if (threadQueue.Count == 0)
+            if (threadQueue.IsCompleted)
             {
                 thread.Stop();
                 _exitAction();

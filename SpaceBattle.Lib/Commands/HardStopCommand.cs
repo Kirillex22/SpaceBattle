@@ -20,7 +20,6 @@ public class HardStopCommand : ICommand
     public void Execute()
     {
         IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[_threadId].Stop();
-        Console.Write($"HS AT {_threadId} WAS EXECUTED");
         _exitAction();
     }
 }
