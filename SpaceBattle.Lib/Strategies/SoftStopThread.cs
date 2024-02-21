@@ -9,10 +9,10 @@ public class SoftStopThread
     {
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Struct.ServerThread.SoftStop", (object[] args) =>
         {
-            var id = (int)args[0];
-            var ss = new SoftStopCommand(id);
-            IoC.Resolve<object>("Game.Struct.ServerThread.SendCommand", id, ss);
-            return new object();
+            var thread = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[(int)args[0]];
+            var ss = new SoftStopCommand(thread, (Action)args[1]);
+            var cmd = IoC.Resolve<ICommand>("Game.Struct.ServerThread.SendCommand", (int)args[0], ss);
+            return cmd;
         }).Execute();
     }
 }

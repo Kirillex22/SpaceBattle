@@ -4,29 +4,23 @@ namespace SpaceBattle.Lib;
 
 public class SoftStopCommand : ICommand
 {
-    private int _threadId;
-    private Action _exitAction = () => { };
-    public SoftStopCommand(int threadId)
+    private ServerThread _thread;
+    private Action _exitAction;
+    public SoftStopCommand(ServerThread thread, Action exitAction)
     {
-        _threadId = threadId;
-    }
-
-    public SoftStopCommand(int threadId, Action exitAction)
-    {
-        _threadId = threadId;
+        _thread = thread;
         _exitAction = exitAction;
     }
 
     public void Execute()
     {
-        var thread = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[_threadId];
-        var threadQueue = thread.ThreadQueue;
+        var threadQueue = _thread.ThreadQueue;
 
-        thread.ChangeBehaviour(() =>
+        _thread.ChangeBehaviour(() =>
         {
-            if (threadQueue.IsCompleted)
+            if (threadQueue.Count == 0)
             {
-                thread.Stop();
+                _thread.Stop();
                 _exitAction();
             }
 

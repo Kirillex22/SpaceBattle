@@ -8,7 +8,8 @@ public class SendCommand
     {
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Struct.ServerThread.SendCommand", (object[] args) =>
         {
-            return new SendCmdCommand((int)args[0], (ICommand)args[1]);
+            var thread = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[(int)args[0]];
+            return new SendCmdCommand(thread, (ICommand)args[1]);
         }).Execute();
     }
 }

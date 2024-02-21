@@ -4,22 +4,17 @@ namespace SpaceBattle.Lib;
 
 public class HardStopCommand : ICommand
 {
-    private int _threadId;
-    private Action _exitAction = () => { };
-    public HardStopCommand(int threadId)
+    private ServerThread _thread;
+    private Action _exitAction;
+    public HardStopCommand(ServerThread thread, Action exitAction)
     {
-        _threadId = threadId;
-    }
-
-    public HardStopCommand(int threadId, Action exitAction)
-    {
-        _threadId = threadId;
+        _thread = thread;
         _exitAction = exitAction;
     }
 
     public void Execute()
     {
-        IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[_threadId].Stop();
+        _thread.Stop();
         _exitAction();
     }
 }

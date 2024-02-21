@@ -30,6 +30,7 @@ public class ServerThread
 
         _thread = new Thread(() =>
         {
+            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", IoC.Resolve<object>("Scopes.Root")).Execute();
             while (!_stop)
             {
                 _behaviour();
@@ -44,7 +45,6 @@ public class ServerThread
 
     internal void Stop()
     {
-        Console.Write("SUCCESFUL STOPPED");
         _stop = true;
     }
 
