@@ -11,12 +11,11 @@ public class CreateAndStartThread
 
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Struct.ServerThread.CreateAndStart", (object[] args) =>
         {
-            var st = new ServerThread(new BlockingCollection<ICommand>());
-            var action = (Action)args[1];
+            var scope = args[1];
+            var action = (Action)args[2];
+            var st = new ServerThread(new BlockingCollection<ICommand>(), scope, action);
             threadList.Add((int)args[0], st);
             st.Start();
-            action();
-
             return new object();
         }).Execute();
     }

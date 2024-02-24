@@ -10,11 +10,10 @@ public class ServerThread
     public BlockingCollection<ICommand> ThreadQueue { get; }
     private Thread _thread;
 
-    public ServerThread(BlockingCollection<ICommand> threadQueue)
+    public ServerThread(BlockingCollection<ICommand> threadQueue, object currentScope, Action startAction)
     {
         _stop = false;
         ThreadQueue = threadQueue;
-
         _behaviour = () =>
         {
             var cmd = ThreadQueue.Take();
@@ -24,13 +23,14 @@ public class ServerThread
             }
             catch (Exception e)
             {
-                IoC.Resolve<ICommand>("Exception.Handler", cmd, e).Execute();
+                IoC.Resolve<SpaceBattle.Lib.ICommand>("Exception.Handler", cmd, e).Execute();
             }
         };
 
         _thread = new Thread(() =>
         {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", IoC.Resolve<object>("Scopes.Root")).Execute();
+            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
+            startAction();
             while (!_stop)
             {
                 _behaviour();
@@ -55,6 +55,7 @@ public class ServerThread
 
     public bool Status()
     {
-        return _stop;
+        return _thread.IsAlive;
     }
 }
+
