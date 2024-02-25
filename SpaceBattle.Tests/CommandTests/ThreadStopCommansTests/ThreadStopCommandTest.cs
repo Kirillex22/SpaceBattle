@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using Hwdtech;
 using Moq;
 using Hwdtech.Ioc;
@@ -63,8 +64,11 @@ public class ThreadStopCommandsTest
         var currentScope = IoC.Resolve<object>("Scopes.Current");
         var threadList = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List");
 
-        IoC.Resolve<object>("Game.Struct.ServerThread.CreateAndStart", 11, currentScope, () => { });
-        IoC.Resolve<object>("Game.Struct.ServerThread.CreateAndStart", 23, currentScope, () => { });
+        var st1 = new ServerThread(new BlockingCollection<SpaceBattle.Lib.ICommand>(), currentScope, () => { });
+        threadList.Add(11, st1);
+
+        var st2 = new ServerThread(new BlockingCollection<SpaceBattle.Lib.ICommand>(), currentScope, () => { });
+        threadList.Add(23, st2);
 
         var c1 = new Mock<SpaceBattle.Lib.ICommand>();
         var c2 = new Mock<SpaceBattle.Lib.ICommand>();
@@ -73,40 +77,32 @@ public class ThreadStopCommandsTest
         var c21 = new Mock<SpaceBattle.Lib.ICommand>();
         var c31 = new Mock<SpaceBattle.Lib.ICommand>();
 
+        c1.Setup(c => c.Execute()).Verifiable();
+        c2.Setup(c => c.Execute()).Verifiable();
+        c3.Setup(c => c.Execute()).Verifiable();
 
-        var th1 = new Thread(() =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-            c1.Setup(c => c.Execute()).Throws(new ArgumentException()).Verifiable();
-            c2.Setup(c => c.Execute()).Verifiable();
-            c3.Setup(c => c.Execute()).Verifiable();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 11, c1.Object).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SoftStop", 11, () => { }).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 11, c2.Object).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 11, c3.Object).Execute();
 
-            IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 11, c1.Object).Execute();
-            IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SoftStop", 11, () => { }).Execute();
-            IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 11, c2.Object).Execute();
-            IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 11, c3.Object).Execute();
-        });
+        IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[11].Start();
 
-        var th2 = new Thread(() =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-            c11.Setup(c => c.Execute()).Throws(new ArgumentException()).Verifiable();
-            c21.Setup(c => c.Execute()).Verifiable();
-            c31.Setup(c => c.Execute()).Verifiable();
+        c11.Setup(c => c.Execute()).Verifiable();
+        c21.Setup(c => c.Execute()).Verifiable();
+        c31.Setup(c => c.Execute()).Verifiable();
 
-            IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 23, c11.Object).Execute();
-            IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SoftStop", 23, () => { }).Execute();
-            IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 23, c21.Object).Execute();
-            IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 23, c31.Object).Execute();
-        });
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 23, c11.Object).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SoftStop", 23, () => { }).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 23, c21.Object).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 23, c31.Object).Execute();
 
-        th1.Start();
-        th2.Start();
-
-        Mock.Verify(c1, c2, c3, c11, c21, c31);
+        IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[23].Start();
 
         Assert.False(threadList[11].Status());
         Assert.False(threadList[23].Status());
+
+        Mock.Verify(c1, c2, c3, c11, c21, c31);
 
         threadList.Remove(11);
         threadList.Remove(23);
