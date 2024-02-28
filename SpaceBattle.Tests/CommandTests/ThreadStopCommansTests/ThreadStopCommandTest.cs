@@ -3,6 +3,7 @@ using Hwdtech;
 using Moq;
 using Hwdtech.Ioc;
 using SpaceBattle.Lib;
+using System.Runtime.CompilerServices;
 
 namespace SpaceBattle.Tests;
 
@@ -99,8 +100,9 @@ public class ThreadStopCommandsTest
 
         IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[23].Start();
 
-        Assert.False(threadList[11].Status());
-        Assert.False(threadList[23].Status());
+        Thread.Sleep(100);
+        Assert.False(st1.Status());
+        Assert.False(st2.Status());
 
         Mock.Verify(c1, c2, c3, c11, c21, c31);
 

@@ -7,16 +7,16 @@ public class ServerThread
 {
     private Action _behaviour;
     private bool _stop;
-    public BlockingCollection<ICommand> ThreadQueue { get; }
+    private BlockingCollection<ICommand> _threadQueue;
     private Thread _thread;
 
     public ServerThread(BlockingCollection<ICommand> threadQueue, object currentScope, Action startAction)
     {
         _stop = false;
-        ThreadQueue = threadQueue;
+        _threadQueue = threadQueue;
         _behaviour = () =>
         {
-            var cmd = ThreadQueue.Take();
+            var cmd = _threadQueue.Take();
             try
             {
                 cmd.Execute();
