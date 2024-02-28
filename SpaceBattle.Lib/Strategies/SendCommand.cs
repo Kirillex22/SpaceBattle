@@ -10,7 +10,13 @@ public class SendCommand
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Struct.ServerThread.SendCommand", (object[] args) =>
         {
             var queue = IoC.Resolve<Dictionary<int, BlockingCollection<SpaceBattle.Lib.ICommand>>>("Game.Struct.ServerThreadQueue.List")[(int)args[0]];
-            return new SendCmdCommand(queue, (ICommand)args[1]);
+            var cmdToSend = (ICommand)args[1];
+            var act = () =>
+            {
+                queue.Add(cmdToSend);
+            };
+            var cmd = new ActionCommand(act);
+            return cmd;
         }).Execute();
     }
 }
