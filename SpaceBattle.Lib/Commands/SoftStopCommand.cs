@@ -25,19 +25,17 @@ public class SoftStopCommand : ICommand
                 _exitAction();
             }
 
-            else
-            {
-                var cmd = _queue.Take();
+            var cmd = _queue.Take();
 
-                try
-                {
-                    cmd.Execute();
-                }
-                catch (Exception e)
-                {
-                    IoC.Resolve<ICommand>("Exception.Handler", cmd, e).Execute();
-                }
+            try
+            {
+                cmd.Execute();
             }
+            catch (Exception e)
+            {
+                IoC.Resolve<ICommand>("Exception.Handler", cmd, e).Execute();
+            }
+
 
         });
     }

@@ -55,7 +55,7 @@ public class ServerThread
 
     public bool Status()
     {
-        return _thread.IsAlive;
+        return _stop;
     }
 }
 
