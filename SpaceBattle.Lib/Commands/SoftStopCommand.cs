@@ -33,7 +33,6 @@ public class SoftStopCommand : ICommand
             else
             {
                 var cmd = _queue.Take();
-
                 try
                 {
                     cmd.Execute();

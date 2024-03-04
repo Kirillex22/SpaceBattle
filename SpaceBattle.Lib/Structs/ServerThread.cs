@@ -60,10 +60,6 @@ public class ServerThread
 
     public override bool Equals(object? obj)
     {
-        if (obj == null)
-        {
-            return false;
-        }
         if (obj.GetType() == typeof(Thread))
         {
             return (Thread)obj == _thread;
