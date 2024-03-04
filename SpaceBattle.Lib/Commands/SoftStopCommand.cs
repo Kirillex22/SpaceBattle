@@ -17,6 +17,11 @@ public class SoftStopCommand : ICommand
 
     public void Execute()
     {
+        if (!_thread.Equals(Thread.CurrentThread))
+        {
+            throw new Exception("Trying to stop thread from another thread");
+        }
+        
         _thread.ChangeBehaviour(() =>
         {
             if (_queue.Count == 0)
@@ -25,18 +30,19 @@ public class SoftStopCommand : ICommand
                 _exitAction();
             }
 
-            var cmd = _queue.Take();
-
-            try
+            else
             {
-                cmd.Execute();
-            }
-            catch (Exception e)
-            {
-                IoC.Resolve<ICommand>("Exception.Handler", cmd, e).Execute();
-            }
+                var cmd = _queue.Take();
 
-
+                try
+                {
+                    cmd.Execute();
+                }
+                catch (Exception e)
+                {
+                    IoC.Resolve<ICommand>("Exception.Handler", cmd, e).Execute();
+                }
+            }
         });
     }
 }

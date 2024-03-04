@@ -57,5 +57,18 @@ public class ServerThread
     {
         return _stop;
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (obj.GetType() == typeof(Thread))
+        {
+            return (Thread)obj == _thread;
+        }
+        return false;
+    }
 }
 

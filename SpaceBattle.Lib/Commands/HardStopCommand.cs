@@ -14,6 +14,10 @@ public class HardStopCommand : ICommand
 
     public void Execute()
     {
+        if (!_thread.Equals(Thread.CurrentThread))
+        {
+            throw new Exception("Trying to stop thread from another thread");
+        }
         _thread.Stop();
         _exitAction();
     }
