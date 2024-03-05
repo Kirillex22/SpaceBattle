@@ -10,7 +10,7 @@ public class ServerThread
     private BlockingCollection<ICommand> _threadQueue;
     private Thread _thread;
 
-    public ServerThread(BlockingCollection<ICommand> threadQueue, object currentScope, Action startAction)
+    public ServerThread(BlockingCollection<ICommand> threadQueue, Action startAction)
     {
         _stop = false;
         _threadQueue = threadQueue;
@@ -29,7 +29,6 @@ public class ServerThread
 
         _thread = new Thread(() =>
         {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
             startAction();
             while (!_stop)
             {
@@ -60,11 +59,16 @@ public class ServerThread
 
     public override bool Equals(object? obj)
     {
-        if (obj.GetType() == typeof(Thread))
+        if (obj != null && obj.GetType() == typeof(Thread))
         {
             return (Thread)obj == _thread;
         }
         return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
     }
 }
 
