@@ -281,6 +281,7 @@ public class ThreadStopCommandsTest
             IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
         }).Execute();
         var th = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[0];
+        th.GetHashCode();
         Assert.False(th.Equals(null));
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 0, () => { }).Execute();
     }
