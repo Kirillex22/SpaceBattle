@@ -9,9 +9,9 @@ public class StopServerCommand : ICommand
     {
         IoC.Resolve<Dictionary<int, object>>("Server.Thread.Map").ToList().ForEach(i => 
         IoC.Resolve<ICommand>("Server.Command.Send", i.Key, IoC.Resolve<ICommand>("Server.Thread.Stop", i.Key, () =>
-        {IoC.Resolve<ICommand>("Server.Thread.Blocker.Create").Execute();})).Execute());
+        {IoC.Resolve<ICommand>("Server.Thread.Barrier.Create").Execute();})).Execute());
 
-        IoC.Resolve<ICommand>("Server.Thread.Blocker.Check").Execute();
+        IoC.Resolve<ICommand>("Server.Thread.Barrier.Check").Execute();
     }
 }
 

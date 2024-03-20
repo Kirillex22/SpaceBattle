@@ -37,8 +37,8 @@ public class StopServerCommandTests
         var MoqBlocker = new Mock<ICommand>();
         MoqBlocker.Setup(i => i.Execute());
 
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Server.Thread.Blocker.Create", (object[] args) => MoqBlocker.Object).Execute();
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Server.Thread.Blocker.Check", (object[] args) => MoqBlocker.Object).Execute();
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Server.Thread.Barrier.Create", (object[] args) => MoqBlocker.Object).Execute();
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Server.Thread.Barrier.Check", (object[] args) => MoqBlocker.Object).Execute();
         
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Server.Stop").Execute();
 
