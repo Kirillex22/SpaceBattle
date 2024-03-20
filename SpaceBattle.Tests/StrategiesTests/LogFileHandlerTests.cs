@@ -3,15 +3,15 @@ using Hwdtech.Ioc;
 
 namespace SpaceBattle.Lib;
 
-public class WriteLogFileTests
+public class LogFileHandlerTests
 {
     [Fact]
-    public void SuccefulWriteLogFileTest()
+    public void SuccefulLogFileHandlerTest()
     {
         string tempFilePath = Path.GetTempFileName();
 
-        var cmd = new WriteLogFile(tempFilePath, "ExceptionError");
-        cmd.Execute();
+        var handle = new LogFileHandler(tempFilePath, "ExceptionError");
+        handle.Handle();
 
         var result = File.ReadAllText(tempFilePath);
         var except = "ExceptionError" + "\n";

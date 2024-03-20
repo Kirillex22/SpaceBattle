@@ -1,17 +1,17 @@
 namespace SpaceBattle.Lib;
 
-public class WriteLogFile : ICommand
+public class LogFileHandler : IHandler
 {
     private string _path;
     private string _message;
 
-    public WriteLogFile(string path, string message)
+    public LogFileHandler(string path, string message)
     {
         _path = path;
         _message = message;
     }
 
-    public void Execute()
+    public void Handle()
     {
         File.AppendAllText(_path, _message+"\n");
     }
