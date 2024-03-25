@@ -65,8 +65,8 @@ public class ThreadStopCommandsTest
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 1, () => { bar.SignalAndWait(); }).Execute();
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 2, () => { bar.SignalAndWait(); }).Execute();
 
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 1, c.Object).Execute();
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 2, c.Object).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 1, c1.Object).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 2, c1.Object).Execute();
 
         bar.SignalAndWait();
         bar.Dispose();
@@ -109,8 +109,8 @@ public class ThreadStopCommandsTest
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 1, () => { bar.SignalAndWait(); }).Execute();
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 2, () => { bar.SignalAndWait(); }).Execute();
 
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 1, c.Object).Execute();
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 2, c.Object).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 1, c1.Object).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 2, c1.Object).Execute();
         bar.SignalAndWait();
 
         bar.Dispose();
