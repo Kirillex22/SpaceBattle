@@ -10,7 +10,7 @@ public class ServerThread
     private BlockingCollection<ICommand> _threadQueue;
     private Thread _thread;
 
-    public ServerThread(BlockingCollection<ICommand> threadQueue, Action startAction)
+    public ServerThread(BlockingCollection<ICommand> threadQueue, Action enterHook, Action exitHook)
     {
         _stop = false;
         _threadQueue = threadQueue;
@@ -29,11 +29,12 @@ public class ServerThread
 
         _thread = new Thread(() =>
         {
-            startAction();
+            enterHook();
             while (!_stop)
             {
                 _behaviour();
             }
+            exitHook();
         });
     }
 
@@ -54,7 +55,12 @@ public class ServerThread
 
     public bool Status()
     {
-        return _stop;
+        return _thread.IsAlive;
+    }
+
+    public void Wait(int ms)
+    {
+        _thread.Join(ms);
     }
 
     public override bool Equals(object? obj)

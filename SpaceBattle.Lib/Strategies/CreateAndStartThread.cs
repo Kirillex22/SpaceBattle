@@ -14,9 +14,10 @@ public class CreateAndStartThread
         {
             var act = () =>
             {
-                var action = (Action)args[1];
+                var enterHook = (Action)args[1];
+                var exitHook = (Action)args[2];
                 var queue = new BlockingCollection<ICommand>();
-                var st = new ServerThread(queue, action);
+                var st = new ServerThread(queue, enterHook, exitHook);
                 threadList.Add((int)args[0], st);
                 queueList.Add((int)args[0], queue);
                 st.Start();

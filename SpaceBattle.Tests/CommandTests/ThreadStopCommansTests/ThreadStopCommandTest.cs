@@ -41,20 +41,27 @@ public class ThreadStopCommandsTest
         }).Execute();
 
         var bar = new Barrier(3);
+
         var threadList = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List");
         var queueList = IoC.Resolve<Dictionary<int, BlockingCollection<SpaceBattle.Lib.ICommand>>>("Game.Struct.ServerThreadQueue.List");
         var currentScope = IoC.Resolve<object>("Scopes.Current");
+
         var c = new Mock<SpaceBattle.Lib.ICommand>();
         var c1 = new Mock<SpaceBattle.Lib.ICommand>();
 
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.CreateAndStart", 1, () =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-        }).Execute();
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.CreateAndStart", 2, () =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-        }).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>(
+            "Game.Struct.ServerThread.CreateAndStart",
+            1, 
+            () => {IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();},
+            () => {bar.SignalAndWait();}
+        ).Execute();
+
+        IoC.Resolve<SpaceBattle.Lib.ICommand>(
+            "Game.Struct.ServerThread.CreateAndStart", 
+            2,
+            () => {IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();},
+            () => {bar.SignalAndWait();}
+        ).Execute();
 
         c.Setup(c => c.Execute()).Throws(new NotImplementedException()).Verifiable(Times.AtLeast(2));
         c1.Setup(c => c.Execute()).Verifiable(Times.Never());
@@ -62,17 +69,21 @@ public class ThreadStopCommandsTest
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 1, c.Object).Execute();
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 2, c.Object).Execute();
 
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 1, () => { bar.SignalAndWait(); }).Execute();
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 2, () => { bar.SignalAndWait(); }).Execute();
-        bar.SignalAndWait();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 1, () => {}).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 2, () => {}).Execute();
 
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 1, c1.Object).Execute();
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 2, c1.Object).Execute();
 
-        
+        bar.SignalAndWait();
         bar.Dispose();
-        Assert.True(threadList[1].Status());
-        Assert.True(threadList[2].Status());
+
+        threadList[1].Wait(100);
+        threadList[2].Wait(100);
+      
+        Assert.False(threadList[1].Status());
+        Assert.False(threadList[2].Status());
+
         Mock.Verify(c, c1);
         IoC.Resolve<object>("Test.ClearDicts", 1, 2);
     }
@@ -86,20 +97,27 @@ public class ThreadStopCommandsTest
         }).Execute();
 
         var bar = new Barrier(3);
+
         var threadList = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List");
         var queueList = IoC.Resolve<Dictionary<int, BlockingCollection<SpaceBattle.Lib.ICommand>>>("Game.Struct.ServerThreadQueue.List");
         var currentScope = IoC.Resolve<object>("Scopes.Current");
+
         var c = new Mock<SpaceBattle.Lib.ICommand>();
         var c1 = new Mock<SpaceBattle.Lib.ICommand>();
 
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.CreateAndStart", 3, () =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-        }).Execute();
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.CreateAndStart", 4, () =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-        }).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>(
+            "Game.Struct.ServerThread.CreateAndStart",
+            3, 
+            () => {IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();},
+            () => {bar.SignalAndWait();}
+        ).Execute();
+
+        IoC.Resolve<SpaceBattle.Lib.ICommand>(
+            "Game.Struct.ServerThread.CreateAndStart",
+            4,
+            () => {IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();},
+            () => {bar.SignalAndWait();}
+        ).Execute();
 
         c.Setup(c => c.Execute()).Verifiable(Times.AtLeast(2));
         c1.Setup(c => c.Execute()).Verifiable(Times.Never());
@@ -107,17 +125,20 @@ public class ThreadStopCommandsTest
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 3, c.Object).Execute();
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 4, c.Object).Execute();
 
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 3, () => { bar.SignalAndWait(); }).Execute();
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 4, () => { bar.SignalAndWait(); }).Execute();
-        bar.SignalAndWait();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 3, () => {}).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 4, () => {}).Execute();
 
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 3, c1.Object).Execute();
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", 4, c1.Object).Execute();
         
-
+        bar.SignalAndWait();
         bar.Dispose();
-        Assert.True(threadList[3].Status());
-        Assert.True(threadList[4].Status());
+
+        threadList[3].Wait(100);
+        threadList[4].Wait(100);
+
+        Assert.False(threadList[3].Status());
+        Assert.False(threadList[4].Status());
         Mock.Verify(c, c1);
         IoC.Resolve<object>("Test.ClearDicts", 3, 4);
     }
@@ -126,6 +147,7 @@ public class ThreadStopCommandsTest
     public void SuccesfulSoftStopThreadsWithCommandThrowsException()
     {
         var bar = new Barrier(3);
+
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Exception.Handler", (object[] args) =>
         {
             return new EmptyCommand();
@@ -137,7 +159,7 @@ public class ThreadStopCommandsTest
             IoC.Resolve<SpaceBattle.Lib.ICommand>(
                 "Game.Struct.ServerThread.SoftStop",
                 (int)args[0],
-                () => { bar.SignalAndWait(); }
+                () => {}
             ).Execute();
             IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", (int)args[0], (SpaceBattle.Lib.ICommand)args[2]).Execute();
             return new object();
@@ -146,16 +168,21 @@ public class ThreadStopCommandsTest
         var currentScope = IoC.Resolve<object>("Scopes.Current");
         var threadList = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List");
         var queueList = IoC.Resolve<Dictionary<int, BlockingCollection<SpaceBattle.Lib.ICommand>>>("Game.Struct.ServerThreadQueue.List");
+
         var q1 = new BlockingCollection<SpaceBattle.Lib.ICommand>();
-        var st1 = new ServerThread(q1, () =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-        });
+        var st1 = new ServerThread(
+            q1,
+            () => {IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();},
+            () => {bar.SignalAndWait();}
+        );
+
         var q2 = new BlockingCollection<SpaceBattle.Lib.ICommand>();
-        var st2 = new ServerThread(q2, () =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-        });
+        var st2 = new ServerThread(
+            q2,
+            () => {IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();},
+            () => {bar.SignalAndWait();}
+        );
+
         var c1 = new Mock<SpaceBattle.Lib.ICommand>();
         var c2 = new Mock<SpaceBattle.Lib.ICommand>();
 
@@ -172,11 +199,15 @@ public class ThreadStopCommandsTest
 
         st1.Start();
         st2.Start();
+
         bar.SignalAndWait();
         bar.Dispose();
 
-        Assert.True(st1.Status());
-        Assert.True(st2.Status());
+        threadList[14].Wait(100);
+        threadList[16].Wait(100);
+
+        Assert.False(st1.Status());
+        Assert.False(st2.Status());
 
         Mock.Verify(c1, c2);
         IoC.Resolve<object>("Test.ClearDicts", 14, 16);
@@ -197,7 +228,7 @@ public class ThreadStopCommandsTest
             IoC.Resolve<SpaceBattle.Lib.ICommand>(
                 "Game.Struct.ServerThread.SoftStop",
                 (int)args[0],
-                () => { bar.SignalAndWait(); }
+                () => {}
             ).Execute();
             IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.SendCommand", (int)args[0], (SpaceBattle.Lib.ICommand)args[2]).Execute();
             return new object();
@@ -206,16 +237,21 @@ public class ThreadStopCommandsTest
         var currentScope = IoC.Resolve<object>("Scopes.Current");
         var threadList = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List");
         var queueList = IoC.Resolve<Dictionary<int, BlockingCollection<SpaceBattle.Lib.ICommand>>>("Game.Struct.ServerThreadQueue.List");
+
         var q1 = new BlockingCollection<SpaceBattle.Lib.ICommand>();
-        var st1 = new ServerThread(q1, () =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-        });
+        var st1 = new ServerThread(
+            q1,
+            () => {IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();},
+            () => {bar.SignalAndWait();}
+        );
+
         var q2 = new BlockingCollection<SpaceBattle.Lib.ICommand>();
-        var st2 = new ServerThread(q2, () =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-        });
+        var st2 = new ServerThread(
+            q2,
+            () => {IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();},
+            () => {bar.SignalAndWait();}
+        );
+
         var c1 = new Mock<SpaceBattle.Lib.ICommand>();
         var c2 = new Mock<SpaceBattle.Lib.ICommand>();
 
@@ -235,8 +271,12 @@ public class ThreadStopCommandsTest
 
         bar.SignalAndWait();
         bar.Dispose();
-        Assert.True(st1.Status());
-        Assert.True(st2.Status());
+
+        threadList[13].Wait(100);
+        threadList[15].Wait(100);
+
+        Assert.False(st1.Status());
+        Assert.False(st2.Status());
         Mock.Verify(c1, c2);
         IoC.Resolve<object>("Test.ClearDicts", 13, 15);
     }
@@ -244,48 +284,68 @@ public class ThreadStopCommandsTest
     [Fact]
     public void HardStopThreadFromAnotherThread()
     {
+        var threadList = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List");
         var bar = new Barrier(2);
         var currentScope = IoC.Resolve<object>("Scopes.Current");
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.CreateAndStart", 9, () =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-        }).Execute();
+
+        IoC.Resolve<SpaceBattle.Lib.ICommand>(
+            "Game.Struct.ServerThread.CreateAndStart", 
+            9,
+            () => {IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();},
+            () => {bar.SignalAndWait();}
+        ).Execute();
+
         var th = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[9];
         var hsThread = new HardStopCommand(th, () => { });
         Assert.Throws<Exception>(() => hsThread.Execute());
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 9, () => { bar.SignalAndWait(); }).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 9, () => {}).Execute();
         bar.SignalAndWait();
+        threadList[9].Wait(100);
     }
 
     [Fact]
     public void SoftStopThreadFromAnotherThread()
     {
+        var threadList = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List");
         var bar = new Barrier(2);
         var currentScope = IoC.Resolve<object>("Scopes.Current");
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.CreateAndStart", 8, () =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-        }).Execute();
+
+        IoC.Resolve<SpaceBattle.Lib.ICommand>(
+            "Game.Struct.ServerThread.CreateAndStart", 
+            8,
+            () => {IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();},
+            () => {bar.SignalAndWait();}
+        ).Execute();
+
         var queue = IoC.Resolve<Dictionary<int, BlockingCollection<SpaceBattle.Lib.ICommand>>>("Game.Struct.ServerThreadQueue.List")[8];
         var th = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[8];
         var ssThread = new SoftStopCommand(th, queue, () => { });
         Assert.Throws<Exception>(() => ssThread.Execute());
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 8, () => { bar.SignalAndWait(); }).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 8, () => {}).Execute();
         bar.SignalAndWait();
+        threadList[8].Wait(100);
     }
 
     [Fact]
     public void NullThreadComparation()
     {
+        var threadList = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List");
         var currentScope = IoC.Resolve<object>("Scopes.Current");
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.CreateAndStart", 6, () =>
-        {
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();
-        }).Execute();
+        var bar = new Barrier(2);
+
+        IoC.Resolve<SpaceBattle.Lib.ICommand>(
+            "Game.Struct.ServerThread.CreateAndStart", 
+            6,
+            () => {IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", currentScope).Execute();},
+            () => {bar.SignalAndWait();}
+        ).Execute();
+        
         var th = IoC.Resolve<Dictionary<int, ServerThread>>("Game.Struct.ServerThread.List")[6];
         th.GetHashCode();
         Assert.False(th.Equals(null));
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 6, () => { }).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Struct.ServerThread.HardStop", 6, () => {}).Execute();
+        bar.SignalAndWait();
+        threadList[6].Wait(100);
     }
 }
 
