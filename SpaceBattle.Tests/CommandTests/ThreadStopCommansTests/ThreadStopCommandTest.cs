@@ -144,7 +144,7 @@ public class ThreadStopCommandsTest
         Assert.False(threadList[id2].Status());
         Mock.Verify(c, c1);
     }
-//
+
     [Fact]
     public void SuccesfulSoftStopThreadsWithCommandThrowsException()
     {
@@ -282,7 +282,6 @@ public class ThreadStopCommandsTest
         Assert.False(st2.Status());
         Mock.Verify(c1, c2);
     }
-    //
 
     [Fact]
     public void HardStopThreadFromAnotherThread()
@@ -353,3 +352,4 @@ public class ThreadStopCommandsTest
         th.Wait(100);
     }
 }
+
