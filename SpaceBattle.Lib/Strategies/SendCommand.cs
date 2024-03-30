@@ -9,7 +9,7 @@ public class SendCommand
     {
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Struct.ServerThread.SendCommand", (object[] args) =>
         {
-            var queue = IoC.Resolve<ServerThread>("ServerThreadContainer.Find", (Guid)args[0]).GetQueue();
+            var queue = IoC.Resolve<BlockingCollection<ICommand>>($"Game.Struct.ServerThread.Queue{(Guid)args[0]}");
             var cmdToSend = (ICommand)args[1];
             
             var act = () =>

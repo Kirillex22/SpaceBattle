@@ -6,7 +6,7 @@ public class HardStopThread
 {
     public void Call()
     {
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Struct.ServerThread.HardStop", (object[] args) =>
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Struct.ServerThread.HardStop{}", (object[] args) =>
         {
             var thread = IoC.Resolve<ServerThread>("ServerThreadContainer.Find", (Guid)args[0]);
             var hs = new HardStopCommand(thread, (Action)args[1]);
