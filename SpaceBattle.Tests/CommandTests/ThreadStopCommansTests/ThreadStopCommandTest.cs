@@ -8,7 +8,7 @@ namespace SpaceBattle.Tests;
 
 public class ThreadStopCommandsTest
 {
-    private Dictionary<Guid, ServerThread> threadList = new Dictionary<Guid, ServerThread>();
+    private ConcurrentDictionary<Guid, ServerThread> threadList = new ConcurrentDictionary<Guid, ServerThread>();
 
     public ThreadStopCommandsTest()
     {
@@ -24,7 +24,7 @@ public class ThreadStopCommandsTest
         {   
             var act = () => 
             {
-                threadList.Add((Guid)args[0], (ServerThread)args[1]);
+                threadList.TryAdd((Guid)args[0], (ServerThread)args[1]);
             };
 
             return new ActionCommand(act);       
@@ -191,8 +191,8 @@ public class ThreadStopCommandsTest
         var c1 = new Mock<SpaceBattle.Lib.ICommand>();
         var c2 = new Mock<SpaceBattle.Lib.ICommand>();
 
-        threadList.Add(id1, st1);
-        threadList.Add(id2, st2);
+        threadList.TryAdd(id1, st1);
+        threadList.TryAdd(id2, st2);
 
         c1.Setup(c => c.Execute()).Throws(new NotImplementedException()).Verifiable(Times.AtLeast(2));
         c2.Setup(c => c.Execute()).Verifiable(Times.AtLeast(2));
@@ -260,8 +260,8 @@ public class ThreadStopCommandsTest
         var c1 = new Mock<SpaceBattle.Lib.ICommand>();
         var c2 = new Mock<SpaceBattle.Lib.ICommand>();
 
-        threadList.Add(id1, st1);
-        threadList.Add(id2, st2);
+        threadList.TryAdd(id1, st1);
+        threadList.TryAdd(id2, st2);
 
         c1.Setup(c => c.Execute()).Verifiable(Times.AtLeast(2));
         c2.Setup(c => c.Execute()).Verifiable(Times.AtLeast(2));
