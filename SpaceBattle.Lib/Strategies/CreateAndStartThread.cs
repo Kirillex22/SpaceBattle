@@ -7,9 +7,6 @@ public class CreateAndStartThread
 {
     public void Call()
     {
-        var threadList = IoC.Resolve<IDictionary<int, ServerThread>>("Game.Struct.ServerThread.List");
-        var queueList = IoC.Resolve<IDictionary<int, BlockingCollection<ICommand>>>("Game.Struct.ServerThreadQueue.List");
-
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Struct.ServerThread.CreateAndStart", (object[] args) =>
         {
             var act = () =>
@@ -18,8 +15,7 @@ public class CreateAndStartThread
                 var exitHook = (Action)args[2];
                 var queue = new BlockingCollection<ICommand>();
                 var st = new ServerThread(queue, enterHook, exitHook);
-                threadList.Add((int)args[0], st);
-                queueList.Add((int)args[0], queue);
+                IoC.Resolve<ICommand>("ServerThreadContainer.Add", (Guid)args[0], st).Execute();
                 st.Start();
             };
             var cmd = new ActionCommand(act);

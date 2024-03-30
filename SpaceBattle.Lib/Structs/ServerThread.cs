@@ -38,6 +38,11 @@ public class ServerThread
         });
     }
 
+    public BlockingCollection<ICommand> GetQueue()
+    {
+        return _threadQueue;
+    }
+
     public void Start()
     {
         _thread.Start();
