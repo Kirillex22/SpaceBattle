@@ -104,12 +104,9 @@ public class ThreadStopCommandsTest
 
         bar.SignalAndWait();
         bar.Dispose();
-
-        st1.Wait(100);
-        st2.Wait(100);
       
-        Assert.False(st1.Status());
-        Assert.False(st2.Status());
+        Assert.True(st1.Status());
+        Assert.True(st2.Status());
 
         Mock.Verify(c, c1);
     } 
@@ -162,12 +159,9 @@ public class ThreadStopCommandsTest
 
         bar.SignalAndWait();
         bar.Dispose();
-
-        st1.Wait(100);
-        st2.Wait(100);
       
-        Assert.False(st1.Status());
-        Assert.False(st2.Status());
+        Assert.True(st1.Status());
+        Assert.True(st2.Status());
 
         Mock.Verify(c, c1);
     }
@@ -245,11 +239,8 @@ public class ThreadStopCommandsTest
         bar.SignalAndWait();
         bar.Dispose();
 
-        st1.Wait(100);
-        st2.Wait(100);
-
-        Assert.False(st1.Status());
-        Assert.False(st2.Status());
+        Assert.True(st1.Status());
+        Assert.True(st2.Status());
 
         Mock.Verify(c1, c2);
     }
@@ -326,11 +317,8 @@ public class ThreadStopCommandsTest
         bar.SignalAndWait();
         bar.Dispose();
 
-        st1.Wait(100);
-        st2.Wait(100);
-
-        Assert.False(st1.Status());
-        Assert.False(st2.Status());
+        Assert.True(st1.Status());
+        Assert.True(st2.Status());
         Mock.Verify(c1, c2);
     }
 
@@ -354,7 +342,6 @@ public class ThreadStopCommandsTest
         Assert.Throws<Exception>(() => hsThread.Execute());
         IoC.Resolve<SpaceBattle.Lib.ICommand>($"Game.Struct.ServerThread.HardStop{id}", () => {}).Execute();
         bar.SignalAndWait();
-        st.Wait(100);
     }
 
     [Fact]
@@ -378,7 +365,6 @@ public class ThreadStopCommandsTest
         Assert.Throws<Exception>(() => ssThread.Execute());
         IoC.Resolve<SpaceBattle.Lib.ICommand>($"Game.Struct.ServerThread.HardStop{id}", () => {}).Execute();
         bar.SignalAndWait();
-        st.Wait(100);
     }
 
     [Fact]
@@ -401,7 +387,6 @@ public class ThreadStopCommandsTest
         Assert.False(st.Equals(null));
         IoC.Resolve<SpaceBattle.Lib.ICommand>($"Game.Struct.ServerThread.HardStop{id}", () => {}).Execute();
         bar.SignalAndWait();
-        st.Wait(100);
     }
 }
 

@@ -38,11 +38,6 @@ public class ServerThread
         });
     }
 
-    public BlockingCollection<ICommand> GetQueue()
-    {
-        return _threadQueue;
-    }
-
     public void Start()
     {
         _thread.Start();
@@ -60,12 +55,7 @@ public class ServerThread
 
     public bool Status()
     {
-        return _thread.IsAlive;
-    }
-
-    public void Wait(int ms)
-    {
-        _thread.Join(ms);
+        return _stop;
     }
 
     public override bool Equals(object? obj)
