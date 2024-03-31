@@ -22,6 +22,13 @@ public class StartServerCommandTests
 
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Server.Create.Thread", (object[] args) => MoqCommand.Object).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Server.Start", (object[] args) => new StartServerCommand((int)args[0])).Execute();
+
+        var MoqBlocker = new Mock<ICommand>();
+        MoqBlocker.Setup(i => i.Execute());
+        
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Server.Thread.Barrier.Create", (object[] args) => MoqBlocker.Object).Execute();
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Server.Thread.Barrier.Check", (object[] args) => MoqBlocker.Object).Execute();
+
         IoC.Resolve<SpaceBattle.Lib.ICommand>("Server.Start", count).Execute();
 
         MoqCommand.Verify(i => i.Execute(), Times.Exactly(count));

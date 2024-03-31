@@ -14,10 +14,15 @@ public class StartServerCommand : ICommand
 
     public void Execute()
     {
-        for (int i = 0; i<_count; i++)
+        var threadsId = Enumerable.Range(0, _count).ToArray();
+
+        Array.ForEach(threadsId, i =>
         {
-            IoC.Resolve<ICommand>("Server.Create.Thread", i).Execute();
-        }
+            IoC.Resolve<ICommand>("Server.Create.Thread", i, () => 
+            {IoC.Resolve<ICommand>("Server.Thread.Barrier.Create").Execute();}).Execute();
+        });
+
+        IoC.Resolve<ICommand>("Server.Thread.Barrier.Check").Execute();
     }
 }
 
