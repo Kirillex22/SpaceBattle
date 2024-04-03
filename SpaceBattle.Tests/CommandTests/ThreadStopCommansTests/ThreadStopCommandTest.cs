@@ -130,7 +130,7 @@ public class ThreadStopCommandsTest
     public void SuccesfulSoftStopThreadsWithCommandThrowsException()
     {
         var bar = new Barrier(3);
-        var ssExecuted = new Barrier(3);;
+        var ssExecuted = new Barrier(3);
 
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Exception.Handler", (object[] args) =>
         {
