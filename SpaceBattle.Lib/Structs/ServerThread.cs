@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Concurrent;
 using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
-public class ServerThread
+public class ServerThread : IDisposable
 {
     private Action _behaviour;
     private bool _stop;
@@ -36,6 +37,11 @@ public class ServerThread
             }
             exitHook();
         });
+    }
+
+    public void Dispose()
+    {
+        _thread.Join();
     }
 
     public void Start()
