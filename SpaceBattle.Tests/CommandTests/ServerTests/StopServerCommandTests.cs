@@ -1,6 +1,7 @@
 using Hwdtech;
 using Hwdtech.Ioc;
 using Moq;
+using System.Collections.Concurrent;
 
 namespace SpaceBattle.Lib.Tests;
 
@@ -14,7 +15,7 @@ public class StopServerCommandTests
             IoC.Resolve<object>("Scopes.Root"))
         ).Execute();
 
-        var map = new Dictionary<int, object>();
+        var map = new ConcurrentDictionary<int, object>();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Server.Thread.Map", (object[] args) => map).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Server.Stop", (object[] args) => new StopServerCommand()).Execute();
     }
@@ -22,7 +23,7 @@ public class StopServerCommandTests
     [Fact]
     public void SuccefulStopServer()
     {
-        var map = IoC.Resolve<Dictionary<int, object>>("Server.Thread.Map");
+        var map = IoC.Resolve<ConcurrentDictionary<int, object>>("Server.Thread.Map");
         var MoqCommand = new Mock<SpaceBattle.Lib.ICommand>();
 
         MoqCommand.Setup(i => i.Execute()).Verifiable();
