@@ -13,3 +13,4 @@ public class ActionCommand : ICommand
         _action();
     }
 }
+
