@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "SpaceBattle.HttpServer": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:7081;http://localhost:5081"
+    }
+  }
+}
