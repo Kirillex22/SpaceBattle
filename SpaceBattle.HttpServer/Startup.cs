@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Xml;
-using WebHttp;
-
-namespace SpaceBattle.HttpServer;
+using SpaceBattle.HttpServer;
 
 internal sealed class Startup
 {

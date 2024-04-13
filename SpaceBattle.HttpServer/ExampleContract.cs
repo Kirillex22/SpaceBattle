@@ -7,28 +7,21 @@ namespace SpaceBattle.HttpServer;
     [DataContract(Name = "ExampleContract", Namespace = "http://example.com")]
     internal class ExampleContract
     {
-        [DataMember(Name = "SimpleProperty", Order = 1)]
-        [OpenApiProperty(Description = "SimpleProperty description.")]
-        public string SimpleProperty { get; set; }
+        [DataMember(Name = "Type", Order = 1)]
+        [OpenApiProperty(Description = "type of game command")]
+        public string Type { get; set; }
 
-        [DataMember(Name = "ComplexProperty", Order = 2)]
-        [OpenApiProperty(Description = "ComplexProperty description.")]
-        public InnerContract ComplexProperty { get; set; }
+        [DataMember(Name = "GameId", Order = 2)]
+        [OpenApiProperty(Description = "id of the target game")]
+        public string GameId { get; set; }
 
-        [DataMember(Name = "SimpleCollection", Order = 3)]
-        [OpenApiProperty(Description = "SimpleCollection description.")]
-        public List<string> SimpleCollection { get; set; }
+        [DataMember(Name = "GameItemId", Order = 3)]
+        [OpenApiProperty(Description = "id of the target game")]
+        public string GameItemId { get; set; }
 
 
-        [DataMember(Name = "ComplexCollection", Order = 4)]
-        [OpenApiProperty(Description = "ComplexCollection description.")]
-        public List<InnerContract> ComplexCollection { get; set; }
+        [DataMember(Name = "InitialValues", Order = 4)]
+        [OpenApiProperty(Description = "initial values for the game command")]
+        public IDictionary<string, object> InitalValues { get; set; }
     }
 
-    [DataContract(Name = "InnerContract", Namespace = "http://example.com")]
-    internal class InnerContract
-    {
-        [DataMember(Name = "Name", Order = 1)]
-        [OpenApiProperty(Description = "Name description.")]
-        public string Name { get; set; }
-    }
