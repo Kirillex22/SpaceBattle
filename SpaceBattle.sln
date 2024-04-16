@@ -6,8 +6,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceBattle.Tests", "SpaceB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceBattle", "SpaceBattle.Lib\SpaceBattle.csproj", "{8FD0806A-315E-4E09-8042-5C5B6EF03987}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceBattle.HttpServer", "SpaceBattle.HttpServer\SpaceBattle.HttpServer.csproj", "{FFF81672-1E79-4185-8E20-5B18C7FAB041}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
