@@ -6,6 +6,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceBattle.Tests", "SpaceB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceBattle", "SpaceBattle.Lib\SpaceBattle.csproj", "{8FD0806A-315E-4E09-8042-5C5B6EF03987}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceBattle.HttpServer", "SpaceBattle.HttpServer\SpaceBattle.HttpServer.csproj", "{7D5A2343-4039-4955-806F-C51E1B762800}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{FFF81672-1E79-4185-8E20-5B18C7FAB041}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFF81672-1E79-4185-8E20-5B18C7FAB041}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFF81672-1E79-4185-8E20-5B18C7FAB041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D5A2343-4039-4955-806F-C51E1B762800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D5A2343-4039-4955-806F-C51E1B762800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D5A2343-4039-4955-806F-C51E1B762800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D5A2343-4039-4955-806F-C51E1B762800}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
