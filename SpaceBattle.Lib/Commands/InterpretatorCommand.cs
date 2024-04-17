@@ -15,7 +15,7 @@ public class InterpretatorCommand: ICommand
 
     public void Execute()
     {
-        var iterpretatorCommand = IoC.Resolve<ICommand>("Game.Command.Create.", _message);
+        var iterpretatorCommand = IoC.Resolve<ICommand>("Game.Command.Create", _message);
         IoC.Resolve<ICommand>("Game.Queue.Push", _message.GameId, iterpretatorCommand).Execute();
     }
 }
