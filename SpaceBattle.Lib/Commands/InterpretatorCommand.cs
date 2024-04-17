@@ -2,7 +2,7 @@ namespace SpaceBattle.Lib;
 
 public class InterpretatorCommand: ICommand
 {
-    IMassage _message;
+    IMessage _message;
 
     public InterpretatorCommand(IMessage message)
     {
