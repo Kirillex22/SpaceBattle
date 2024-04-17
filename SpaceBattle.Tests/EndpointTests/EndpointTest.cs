@@ -55,28 +55,14 @@ public class EndpointTest
             return new ActionCommand(() => testQueue.Enqueue(cmd));
         }).Execute();
 
-        var scope = IoC.Resolve<object>("Scopes.Current");
-        var hook = () =>
-        {
-            new InitScopeBasedIoCImplementationCommand().Execute();
-            IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", scope).Execute();
-        };
-
-        new Thread(() =>
-        {
-            endpoint = new Endpoint();
-            endpoint.CreateApp();
-            endpoint.StartListening(8000, hook);
-
-        }).Start();
-
+        endpoint = new Endpoint();
+        endpoint.CreateApp();
+        endpoint.StartListening(8000);
     }
 
     [Fact]
-    public void SuccesfulPostingTheMessage()
+    public async void SuccesfulPostingTheMessage()
     {
-        Thread.Sleep(5000);
-
         string url = "http://localhost:8000/send_message";
         var msg = new MessageContract { Type = "fire", GameId = "10", ItemId = "190", InitialValues = new Dictionary<string, object>() { { "initialVelocity", 1 } } };
         string jsonData = JsonConvert.SerializeObject(msg);
@@ -88,7 +74,6 @@ public class EndpointTest
         byte[] response = client.UploadData(url, "POST", byteArray);
         string responseString = Encoding.UTF8.GetString(response);
 
-        Console.WriteLine(responseString);
         Assert.True(testQueue.Count != 0);
         testQueue.Dequeue().Execute();
         Assert.True(
@@ -97,6 +82,7 @@ public class EndpointTest
             (buddy.ItemId == msg.ItemId)
         );
         endpoint.Stop();
+        endpoint.Dispose();
     }
 
 }

@@ -1,10 +1,11 @@
 using System.Net.Http.Json;
 using System.Collections.Generic;
 using Hwdtech;
+using Microsoft.Extensions.ObjectPool;
 
 namespace SpaceBattle.HttpServer;
 
-public class Endpoint
+public class Endpoint : IDisposable
 {
     private WebApplication _app;
 
@@ -20,11 +21,15 @@ public class Endpoint
             return message;
         });
     }
-    public async void StartListening(int port, Action act)
+    public async void StartListening(int port)
     {
-        act();
-        _app.Run($"http://localhost:{port}");
+        await _app.RunAsync($"http://localhost:{port}");
     }
     public async void Stop() => await _app.StopAsync();
+
+    public void Dispose()
+    {
+        _app.DisposeAsync();
+    }
 }
 
