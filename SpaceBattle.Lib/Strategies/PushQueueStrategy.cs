@@ -1,3 +1,7 @@
+using Hwdtech;
+using Hwdtech.Ioc;
+using System.Collections;
+
 namespace SpaceBattle.Lib;
 
 public class PushQueueStrategy
@@ -8,9 +12,7 @@ public class PushQueueStrategy
         var cmd = (ICommand)args[1];
 
         var q = IoC.Resolve<Queue<ICommand>>("Game.Get.Queue", id);
-        q.Enqueue(cmd);
-
-        var action = new ActionCommand(() => {q;});
+        var action = new ActionCommand(() => {q.Enqueue(cmd);});
 
         return action;
     }

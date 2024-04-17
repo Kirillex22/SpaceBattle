@@ -1,3 +1,7 @@
+using Hwdtech;
+using Hwdtech.Ioc;
+using System.Collections;
+
 namespace SpaceBattle.Lib; 
 
 public class GetGameQueueStrategy
@@ -6,8 +10,8 @@ public class GetGameQueueStrategy
     {
         int id = (int)args[0];
 
-        var dict = IoC.Resolve<IDictionary<int, Queue<ICommand>>>("Game.Queue");
-        if (!dict.TryGetValue(id, out Queue<Icommand> q))
+        var dict = IoC.Resolve<IDictionary<int, Queue<SpaceBattle.Lib.ICommand>>>("Game.Queue");
+        if (!dict.TryGetValue(id, out Queue<SpaceBattle.Lib.ICommand> q))
         {
             throw new Exception();
         }

@@ -1,3 +1,7 @@
+using Hwdtech;
+using Hwdtech.Ioc;
+using System.Collections;
+
 namespace SpaceBattle.Lib;
 
 public class InterpretatorCommand: ICommand
