@@ -7,6 +7,7 @@ using Hwdtech;
 using Hwdtech.Ioc;
 using System.Collections.Generic;
 using SpaceBattle.Lib;
+using System.Net.Http.Json;
 
 namespace SpaceBattle.Tests;
 internal class ActionCommand : SpaceBattle.Lib.ICommand
@@ -27,7 +28,6 @@ public class EndpointTest
 {
     private Queue<SpaceBattle.Lib.ICommand> testQueue;
     private MessageContract buddy;
-    static Endpoint endpoint;
     public EndpointTest()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
@@ -55,34 +55,33 @@ public class EndpointTest
             return new ActionCommand(() => testQueue.Enqueue(cmd));
         }).Execute();
 
-        endpoint = new Endpoint();
-        endpoint.CreateApp();
-        endpoint.StartListening(8000);
     }
 
     [Fact]
-    public async void SuccesfulPostingTheMessage()
+    public async Task SuccesfulSendingTheCmd()
     {
-        string url = "http://localhost:8000/send_message";
-        var msg = new MessageContract { Type = "fire", GameId = "10", ItemId = "190", InitialValues = new Dictionary<string, object>() { { "initialVelocity", 1 } } };
-        string jsonData = JsonConvert.SerializeObject(msg);
-        byte[] byteArray = Encoding.UTF8.GetBytes(jsonData);
+        var scope = IoC.Resolve<object>("Scopes.Current");
 
-        WebClient client = new WebClient();
-        client.Headers.Add("Content-Type", "application/json");
+        using (var endpoint = new Endpoint())
+        {
+            endpoint.CreateApp(scope);
+            endpoint.StartListening(8000);
+            string url = "http://localhost:8000/send_message";
+            var client = new HttpClient();
+            var msg = new MessageContract { Type = "fire", GameId = "10", ItemId = "190", InitialValues = new Dictionary<string, object>() { { "initialVelocity", 1 } } };
+            JsonContent content = JsonContent.Create(msg);
 
-        byte[] response = client.UploadData(url, "POST", byteArray);
-        string responseString = Encoding.UTF8.GetString(response);
+            using var response = await client.PostAsync(url, content);
 
-        Assert.True(testQueue.Count != 0);
-        testQueue.Dequeue().Execute();
-        Assert.True(
-            (buddy.Type == msg.Type) &&
-            (buddy.GameId == msg.GameId) &&
-            (buddy.ItemId == msg.ItemId)
-        );
-        endpoint.Stop();
-        endpoint.Dispose();
+            Assert.True(testQueue.Count != 0);
+            testQueue.Dequeue().Execute();
+            Assert.True(
+                (buddy.Type == msg.Type) &&
+                (buddy.GameId == msg.GameId) &&
+                (buddy.ItemId == msg.ItemId)
+            );
+        };
+
     }
 
 }
