@@ -54,3 +54,4 @@ internal sealed class Startup
         });
     }
 }
+

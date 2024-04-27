@@ -19,3 +19,4 @@ public class MessageContract
     [DataMember(Name = "InitialValues", Order = 4)]
     public Dictionary<string, object>? InitialValues { get; set; }
 }
+

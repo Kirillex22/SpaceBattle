@@ -18,3 +18,4 @@ public interface IService
     [WebInvoke(Method = "POST", UriTemplate = "/send_message", RequestFormat = WebMessageFormat.Json)]
     public void HandleMessage([OpenApiParameter(ContentTypes = new[] { "application/json" }, Description = "param description.")] MessageContract param);
 }
+
