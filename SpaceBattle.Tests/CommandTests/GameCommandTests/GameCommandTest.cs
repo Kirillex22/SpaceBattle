@@ -144,3 +144,4 @@ public class GameCommandTests
         Mock.Verify(resolveCmd, resolveCmd1);
     }
 }
+
