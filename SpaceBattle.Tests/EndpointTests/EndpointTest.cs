@@ -1,5 +1,4 @@
-using SpaceBattle.HttpServer;
-using Newtonsoft.Json;
+using SpaceBattle.Server;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -8,6 +7,10 @@ using Hwdtech.Ioc;
 using System.Collections.Generic;
 using SpaceBattle.Lib;
 using System.Net.Http.Json;
+using System.Net.Mime;
+using System.Text.Json;
+using Microsoft.AspNetCore.DataProtection;
+using System.Web.Services.Description;
 
 namespace SpaceBattle.Tests;
 internal class ActionCommand : SpaceBattle.Lib.ICommand
@@ -26,62 +29,53 @@ internal class ActionCommand : SpaceBattle.Lib.ICommand
 
 public class EndpointTest
 {
-    private Queue<SpaceBattle.Lib.ICommand> testQueue;
-    private MessageContract buddy;
+    private Queue<SpaceBattle.Lib.ICommand> _testQueue;
     public EndpointTest()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
 
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Endpoint.GetServerThreadQueueIdByGameId", (object[] args) =>
-        {
-            return "guid of st";
-        }).Execute();
-
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Endpoint.ParseMessageToCmd", (object[] args) =>
-        {
-            var msg = (MessageContract)args[0];
-            var cmd = new ActionCommand(() =>
-            {
-                buddy = msg;
-            });
-            return cmd;
-        }).Execute();
-
-        testQueue = new Queue<SpaceBattle.Lib.ICommand>();
+        _testQueue = new Queue<SpaceBattle.Lib.ICommand>();
 
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "ServerThread.SendCommand", (object[] args) =>
         {
             var cmd = (SpaceBattle.Lib.ICommand)args[0];
-            return new ActionCommand(() => testQueue.Enqueue(cmd));
+            return new ActionCommand(() => _testQueue.Enqueue(cmd));
         }).Execute();
-
     }
 
     [Fact]
-    public async Task SuccesfulSendingTheCmd()
+    public void SuccesfulSendingTheCmd()
     {
-        var scope = IoC.Resolve<object>("Scopes.Current");
+        MessageContract result = new MessageContract();
 
-        using (var endpoint = new Endpoint())
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "ServerThread.GetQueueIdByGame", (object[] args) =>
         {
-            endpoint.CreateApp(scope);
-            endpoint.StartListening(8000);
-            string url = "http://localhost:8000/send_message";
-            var client = new HttpClient();
-            var msg = new MessageContract { Type = "fire", GameId = "10", ItemId = "190", InitialValues = new Dictionary<string, object>() { { "initialVelocity", 1 } } };
-            JsonContent content = JsonContent.Create(msg);
+            return "TEST QUEUE ID";
+        }).Execute();
 
-            using var response = await client.PostAsync(url, content);
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Endpoint.InterpretateMessage", (object[] args) =>
+        {
+            var msg = (MessageContract)args[0];
+            return new ActionCommand(() => { result = msg; });
+        }).Execute();
 
-            Assert.True(testQueue.Count != 0);
-            testQueue.Dequeue().Execute();
-            Assert.True(
-                (buddy.Type == msg.Type) &&
-                (buddy.GameId == msg.GameId) &&
-                (buddy.ItemId == msg.ItemId)
-            );
+        var ep = new Endpoint();
+        var msg = new MessageContract
+        {
+            Type = "fire",
+            GameId = "GUID1",
+            ItemId = "GUID2",
+            InitialValues = new Dictionary<string, object>()
+            {
+                { "initialVelocity", 1 }
+            }
         };
 
-    }
+        ep.HandleMessage(msg);
 
+        Assert.NotEmpty(_testQueue);
+        _testQueue.Dequeue().Execute();
+        Assert.True(result == msg);
+    }
 }
+
