@@ -6,7 +6,6 @@ namespace SpaceBattle.Lib;
 
 public class ActionCommand : ICommand
 {
-    
     private Action _action;
 
     public ActionCommand(Action action)
