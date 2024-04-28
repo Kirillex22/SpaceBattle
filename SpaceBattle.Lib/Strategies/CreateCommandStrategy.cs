@@ -14,7 +14,7 @@ public class CreateCommandStrategy
 
         message.Properties.ToList().ForEach(i => IoC.Resolve<ICommand>("Game.Command.SetProperties", uobj, i.Key, i.Value).Execute());
 
-        return IoC.Resolve<ICommand>("Game.Command" + message.CommandType, uobj);
+        return IoC.Resolve<ICommand>("Game.Command." + message.CommandType, uobj);
     }
 }
 
