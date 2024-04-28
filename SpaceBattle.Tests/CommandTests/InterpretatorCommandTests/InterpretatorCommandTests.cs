@@ -2,6 +2,7 @@ using System;
 using Moq;
 using Hwdtech;
 using Hwdtech.Ioc;
+
 namespace SpaceBattle.Lib.Test;
 
 public class InterpretatorCommandTests
