@@ -43,3 +43,4 @@ msbuild.err
 msbuild.wrn
 coverage.cobertura.xml
 coverage.json
+.mono/
