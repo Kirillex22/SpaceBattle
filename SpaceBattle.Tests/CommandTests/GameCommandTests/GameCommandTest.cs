@@ -7,10 +7,10 @@ using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
-internal class ActionCommand : SpaceBattle.Lib.ICommand
+internal class TestActionCommand : SpaceBattle.Lib.ICommand
 {
     private Action _act;
-    public ActionCommand(Action act)
+    public TestActionCommand(Action act)
     {
         _act = act;
     }
@@ -65,7 +65,7 @@ public class GameCommandTests
 
         var th = new Thread(() =>
         {
-            new ActionCommand(() =>
+            new TestActionCommand(() =>
             {
                 gameCmd.Execute();
                 barrier.SignalAndWait();
@@ -131,7 +131,7 @@ public class GameCommandTests
 
         var th = new Thread(() =>
         {
-            new ActionCommand(() =>
+            new TestActionCommand(() =>
             {
                 gameCmd.Execute();
                 barrier.SignalAndWait();

@@ -12,10 +12,11 @@ using System.Text.Json;
 
 
 namespace SpaceBattle.Tests;
-internal class ActionCommand : SpaceBattle.Lib.ICommand
+
+internal class ActCommand : SpaceBattle.Lib.ICommand
 {
     private Action _act;
-    public ActionCommand(Action act)
+    public ActCommand(Action act)
     {
         _act = act;
     }
@@ -38,7 +39,7 @@ public class EndpointTest
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "ServerThread.SendCommand", (object[] args) =>
         {
             var cmd = (SpaceBattle.Lib.ICommand)args[0];
-            return new ActionCommand(() => _testQueue.Enqueue(cmd));
+            return new ActCommand(() => _testQueue.Enqueue(cmd));
         }).Execute();
     }
 
@@ -55,7 +56,7 @@ public class EndpointTest
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Endpoint.InterpretateMessage", (object[] args) =>
         {
             var msg = (MessageContract)args[0];
-            return new ActionCommand(() => { result = msg; });
+            return new ActCommand(() => { result = msg; });
         }).Execute();
 
         var ep = new Endpoint();
