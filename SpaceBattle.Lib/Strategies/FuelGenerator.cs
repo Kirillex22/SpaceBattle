@@ -15,19 +15,21 @@ public class FuelGenerator
         "Game.Generators.Fuelable.Capacity",
         (object[] args) =>
         {
+            var objs = (List<IUObject>)args[0];
             var cpcty = (int)args[1];
-            var objs = GenerateFuel((IEnumerable<IUObject>)args[0], cpcty);
-            return objs;
+
+            var objsWithFuel = GenerateFuel(objs, cpcty);
+            return objsWithFuel.ToList();
         }
         ).Execute();
     }
 
-    private static IEnumerable<IUObject> GenerateFuel(IEnumerable<IUObject> objs, int capacity)
+    private IEnumerable<IUObject> GenerateFuel(List<IUObject> objs, int capacity)
     {
         foreach (var obj in objs)
         {
             var fble = IoC.Resolve<IFuelable>("Game.Adapters.IFuelable", obj);
-            fble.Capacity = capacity; //в реализации set для свойства fble.Capacity будет использоваться IoС стратегия, которая обновит текущий obj
+            fble.Capacity = capacity;
             yield return obj;
         }
     }

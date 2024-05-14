@@ -13,17 +13,21 @@ public class GameCreator
         (object[] args) =>
         {
             var count = (int)args[0];
+            var startX = (int)args[1];
+            var stepY = (int)args[2];
+            var stepX = (int)args[3];
+            var initCapacity = (int)args[4];
 
             var act = () =>
             {
-                var playerFirstObjs = IoC.Resolve<IEnumerable<IUObject>>("Game.Generators.IUObject", count / 2); //корабли 1 игрока
-                var playerSecondObjs = IoC.Resolve<IEnumerable<IUObject>>("Game.Generators.IUObject", count / 2); //корабли 2 игрока
+                var playerFirstObjs = IoC.Resolve<List<IUObject>>("Game.Generators.IUObject", count / 2); //корабли 1 игрока
+                var playerSecondObjs = IoC.Resolve<List<IUObject>>("Game.Generators.IUObject", count / 2); //корабли 2 игрока
 
-                playerFirstObjs = IoC.Resolve<IEnumerable<IUObject>>("Game.Initialize.StartPositions", playerFirstObjs, 0, 1);
-                playerFirstObjs = IoC.Resolve<IEnumerable<IUObject>>("Game.Initialize.StartFuelCapacity", playerFirstObjs, 100);
+                playerFirstObjs = IoC.Resolve<List<IUObject>>("Game.Initialize.StartPositions", playerFirstObjs, startX, stepY);
+                playerFirstObjs = IoC.Resolve<List<IUObject>>("Game.Initialize.StartFuelCapacity", playerFirstObjs, initCapacity);
 
-                playerSecondObjs = IoC.Resolve<IEnumerable<IUObject>>("Game.Initialize.StartPositions", playerSecondObjs, 1, 1);
-                playerSecondObjs = IoC.Resolve<IEnumerable<IUObject>>("Game.Initialize.StartFuelCapacity", playerSecondObjs, 100);
+                playerSecondObjs = IoC.Resolve<List<IUObject>>("Game.Initialize.StartPositions", playerSecondObjs, startX + stepX, stepY);
+                playerSecondObjs = IoC.Resolve<List<IUObject>>("Game.Initialize.StartFuelCapacity", playerSecondObjs, initCapacity);
             };
 
             return new ActionCommand(act);

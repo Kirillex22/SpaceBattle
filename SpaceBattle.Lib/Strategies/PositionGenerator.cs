@@ -15,20 +15,22 @@ public class PositionGenerator
         "Game.Generators.Movable.Position",
         (object[] args) =>
         {
+            var objs = (List<IUObject>)args[0];
             var start = (Vector)args[1];
             var step = (Vector)args[2];
-            var objs = GeneratePosition((IEnumerable<IUObject>)args[0], start, step);
-            return objs;
+
+            var objsWithPosition = GeneratePosition(objs, start, step);
+            return objsWithPosition.ToList();
         }
         ).Execute();
     }
 
-    private static IEnumerable<IUObject> GeneratePosition(IEnumerable<IUObject> objs, Vector start, Vector step)
+    private IEnumerable<IUObject> GeneratePosition(List<IUObject> objs, Vector start, Vector step)
     {
         foreach (var obj in objs)
         {
             var mv = IoC.Resolve<IMovable>("Game.Adapters.IMovable", obj);
-            mv.Position = start; //в реализации set для свойства mv.Position будет использоваться IoС стратегия, которая обновит текущий obj
+            mv.Position = start;
             start += step;
             yield return obj;
         }

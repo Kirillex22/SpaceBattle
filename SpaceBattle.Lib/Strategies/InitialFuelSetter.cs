@@ -19,9 +19,9 @@ public class InitialFuelSetter
         "Game.Initialize.StartFuelCapacity",
         (object[] args) =>
         {
-            var objs = (IEnumerable<IUObject>)args[0];
+            var objs = (List<IUObject>)args[0];
             var capacity = (int)args[1];
-            var updObjs = IoC.Resolve<IEnumerable<IUObject>>("Game.Generators.Fuelable.Capacity", objs, capacity);
+            var updObjs = IoC.Resolve<List<IUObject>>("Game.Generators.Fuelable.Capacity", objs, capacity);
             return updObjs;
         }
         ).Execute();
