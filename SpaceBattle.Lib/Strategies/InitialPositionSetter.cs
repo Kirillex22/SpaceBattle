@@ -18,11 +18,12 @@ public class InitialPositionSetter
         "Game.Initialize.StartPositions",
         (object[] args) =>
         {
-            var stepSize = (int)args[1];
+            var startPointY = (int)args[1];
+            var stepSizeX = (int)args[2];
             var objs = (IEnumerable<IUObject>)args[0];
 
-            var start = new Vector(new int[] { 0, 0 });
-            var step = new Vector(new int[] { stepSize, 0 });
+            var start = new Vector(new int[] { 0, startPointY });
+            var step = new Vector(new int[] { stepSizeX, 0 });
 
             var updObjs = IoC.Resolve<IEnumerable<IUObject>>("Game.Generators.Movable.Position", objs, start, step);
             return updObjs;
