@@ -5,34 +5,25 @@ using Hwdtech;
 using Hwdtech.Ioc;
 
 namespace SpaceBattle.Lib;
+
 public class InitialFuelSetter
 {
+    private FuelGenerator _fuelGen = new();
+
+    public InitialFuelSetter() => _fuelGen.Call();
+
     public void Call()
     {
         IoC.Resolve<Hwdtech.ICommand>(
         "IoC.Register",
-        "Game.IUObject.SetStartFuelCapacity",
+        "Game.Initialize.StartFuelCapacity",
         (object[] args) =>
         {
-            var objs = (IUObject[])args[0];
-            var fuelCapacity = (int)args[1];
-            var updObjs = GetObjsWithUpdFuel(objs, fuelCapacity);
-
+            var objs = (IEnumerable<IUObject>)args[0];
+            var capacity = (int)args[1];
+            var updObjs = IoC.Resolve<IEnumerable<IUObject>>("Game.Generators.Fuelable.Capacity", objs, capacity);
             return updObjs;
         }
         ).Execute();
-    }
-
-
-    private static IEnumerable<IUObject> GetObjsWithUpdFuel(IUObject[] objs, int fuelCapacity)
-    {
-        var len = objs.Length;
-        var index = 0;
-
-        while (index < len)
-        {
-            IoC.Resolve<ICommand>("Game.IUObject.SetProperty", objs[index], "Fuel", fuelCapacity).Execute();
-            yield return objs[index];
-        }
     }
 }
