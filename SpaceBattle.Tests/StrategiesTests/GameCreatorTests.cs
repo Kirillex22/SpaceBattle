@@ -164,3 +164,4 @@ public class GameCreatorTests
         Assert.True(_container.Count == 6 && isPositionOk.All(x => x == true) && isFuelOk.All(x => x == true));
     }
 }
+

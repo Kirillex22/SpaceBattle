@@ -7,3 +7,4 @@ public interface IFuelable
     public int Consumption { get; }
 
 }
+
