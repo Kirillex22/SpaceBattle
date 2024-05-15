@@ -6,7 +6,7 @@ namespace SpaceBattle.Lib;
 
 public class DeleteGameStrategy
 {
-    public object Run(object[] args)
+    public object Run(params object[] args)
     {
         int gameId = (int)args[0];
         return new DeleteGameCommand(gameId);
