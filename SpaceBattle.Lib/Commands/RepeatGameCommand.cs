@@ -4,7 +4,7 @@ using Hwdtech.Ioc;
 
 namespace SpaceBattle.Lib;
 
-public class RepeatGameCommand
+public class RepeatGameCommand : ICommand
 {
     private ICommand _cmd;
 
