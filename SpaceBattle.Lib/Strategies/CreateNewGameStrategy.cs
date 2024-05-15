@@ -4,7 +4,7 @@ using Hwdtech.Ioc;
 
 namespace SpaceBattle.Lib;
 
-public class CreateNewGameCommand
+public class CreateNewGameStrategy
 {
     public object Run(params object[] args)
     {
