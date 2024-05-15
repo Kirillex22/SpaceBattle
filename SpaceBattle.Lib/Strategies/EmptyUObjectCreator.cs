@@ -15,7 +15,6 @@ public class EmptyUObjectCreator
             var id = (Guid)args[0];
             var obj = IoC.Resolve<IUObject>("Game.Create.IUObject");
             IoC.Resolve<ICommand>("Game.IUObject.Container.Push", id, obj).Execute();
-            return obj;
         }
         ).Execute();
     }
