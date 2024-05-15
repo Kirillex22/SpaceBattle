@@ -6,7 +6,7 @@ namespace SpaceBattle.Lib;
 
 public class DeleteUObjectCommand
 {
-    private int _gameId
+    private int _gameId;
 
     public DeleteUObjectCommand(int gameId)
     {

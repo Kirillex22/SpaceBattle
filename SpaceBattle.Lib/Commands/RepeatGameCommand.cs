@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Concurrent;
 using Hwdtech;
 using Hwdtech.Ioc;
 
@@ -17,8 +17,6 @@ public class RepeatGameCommand
     {
         var threadQeue = IoC.Resolve<BlockingCollection<ICommand>>("Server.Thread.Queue");
         threadQeue.Add(_cmd);
-        
-        return threadQeue;
     }
 }
 

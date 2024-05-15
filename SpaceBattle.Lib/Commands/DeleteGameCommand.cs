@@ -15,10 +15,10 @@ public class DeleteGameCommand: ICommand
 
     public void Execute()
     {
-        gameMap = IoC.Resolve<IDictionary<int, IBridgeCommand>>("Game.Map");
+        var gameMap = IoC.Resolve<IDictionary<int, IBridgeCommand>>("Game.Map");
         gameMap[_gameId].Inject(IoC.Resolve<ICommand>("Game.EmptyCommand"));
 
-        scopeMap = IoC.Resolve<IDictionary<int, object>>("Scope.Map");
+        var scopeMap = IoC.Resolve<IDictionary<int, object>>("Scope.Map");
         scopeMap.Remove(_gameId);
     }
 }
