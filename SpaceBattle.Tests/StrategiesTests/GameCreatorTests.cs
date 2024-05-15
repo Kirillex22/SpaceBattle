@@ -8,7 +8,6 @@ namespace SpaceBattle.Tests;
 
 public class GameCreatorTests
 {
-    private Dictionary<Guid, IUObject> _container = new();
     public GameCreatorTests()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
@@ -80,6 +79,61 @@ public class GameCreatorTests
             }
         ).Execute();
 
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Initialize.Fuelable.GetFuel", (object[] args) =>
+        {
+            return "100";
+        }).Execute();
+
+        new GameObjectsContainer().Call();
+        new ObjectCreator().Call();
+    }
+
+    [Fact]
+    public void SuccesfulCreatingUObjects()
+    {
+        var uobj = new Mock<IUObject>().Object;
+
+        IoC.Resolve<Hwdtech.ICommand>(
+            "IoC.Register",
+            "Game.Create.IUObject",
+            (object[] args) => uobj
+        ).Execute();
+
+        var id1 = Guid.NewGuid();
+        var id2 = Guid.NewGuid();
+        var id3 = Guid.NewGuid();
+
+        new MacroCommand(new Lib.ICommand[]
+        {
+            new CreateObjectCommand(id1),
+            new CreateObjectCommand(id2),
+            new CreateObjectCommand(id3)
+        }).Execute();
+
+        var container = IoC.Resolve<Dictionary<Guid, IUObject>>("Game.IUObject.Container");
+
+        Assert.True(
+            container[id1] == uobj &&
+            container[id2] == uobj &&
+            container[id3] == uobj
+        );
+    }
+
+    [Fact]
+    public void SuccesfulSettingPositions()
+    {
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Initialize.Movable.StartPosition", (object[] args) => new Vector(new int[] { 0, 0 })).Execute();
+
+        var step = new Vector(new int[] { 0, 1 });
+
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Initialize.Movable.Position", (object[] args) =>
+        {
+            var previousPos = (Vector)args[0];
+            return previousPos + step;
+        }).Execute();
+
+        new PositionGetter().Call();
+
         IoC.Resolve<Hwdtech.ICommand>(
             "IoC.Register",
             "Game.Create.IUObject",
@@ -102,66 +156,180 @@ public class GameCreatorTests
             }
         ).Execute();
 
-        IoC.Resolve<Hwdtech.ICommand>(
-            "IoC.Register",
-            "Game.IUObject.Container.Push",
-            (object[] args) =>
-            {
-                var id = (Guid)args[0];
-                var obj = (IUObject)args[1];
+        var id1 = Guid.NewGuid();
+        var id2 = Guid.NewGuid();
+        var id3 = Guid.NewGuid();
 
-                var act = () =>
-                {
-                    _container.Add(id, obj);
-                };
+        new MacroCommand(new Lib.ICommand[]{
+            new CreateObjectCommand(id1),
+            new PositionSetCommand(id1),
 
-                return new ActionCommand(act);
-            }
-        ).Execute();
+            new CreateObjectCommand(id2),
+            new PositionSetCommand(id2),
 
-        new EmptyUObjectCreator().Call();
-        new EmptyUObjectsGenerator().Call();
-        new InitialPositionSetter().Call();
-        new InitialFuelSetter().Call();
-        new GameCreator().Call();
+            new CreateObjectCommand(id3),
+            new PositionSetCommand(id3)
+        }).Execute();
+
+        var expected = new List<int[]>()
+        {
+            new int[] {0, 0},
+            new int[] {0, 1},
+            new int[] {0, 2}
+        };
+
+        var uobjects = IoC.Resolve<Dictionary<Guid, IUObject>>("Game.IUObject.Container").Values.ToList();
+
+        var actual = new List<int[]>();
+
+        uobjects.ForEach(obj =>
+        {
+            var vector = (Vector)obj.GetProperty("Position");
+            actual.Add(vector.Coords);
+        });
+
+        var isPositionOk = new List<bool>();
+        var idx = 0;
+        actual.ForEach(pos =>
+        {
+            isPositionOk.Add(pos == expected[idx]);
+            idx++;
+        });
+
+        Assert.All(isPositionOk, (val) => val.Equals(true));
     }
 
     [Fact]
-    public void SuccesfulCreationOfInitGameStateWithSixObjects()
+    public void SuccesfulSettingFuel()
     {
-        var count = 6;
-        var startX = 0;
-        var stepY = 1;
-        var stepX = 10;
-        var expectedFuel = 100;
+        new FuelGetter().Call();
 
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.SetInitialState", count, startX, stepY, stepX, expectedFuel).Execute();
+        IoC.Resolve<Hwdtech.ICommand>(
+            "IoC.Register",
+            "Game.Create.IUObject",
+            (object[] args) =>
+            {
+                var dict = new Dictionary<string, object>();
+                var uobj = new Mock<IUObject>();
 
+                uobj.Setup(u => u.SetProperty(It.IsAny<string>(), It.IsAny<object>())).Callback((string key, object value) =>
+                {
+                    dict.Add(key, value);
+                });
 
-        var posList = new List<int[]>()
+                uobj.Setup(u => u.GetProperty(It.IsAny<string>())).Returns((string key) =>
+                {
+                    return dict[key];
+                });
+
+                return uobj.Object;
+            }
+        ).Execute();
+
+        var id1 = Guid.NewGuid();
+        var id2 = Guid.NewGuid();
+        var id3 = Guid.NewGuid();
+
+        new MacroCommand(new Lib.ICommand[]{
+            new CreateObjectCommand(id1),
+            new FuelSetCommand(id1),
+
+            new CreateObjectCommand(id2),
+            new FuelSetCommand(id2),
+
+            new CreateObjectCommand(id3),
+            new FuelSetCommand(id3)
+        }).Execute();
+
+        var expectedFuel = new List<int>() { 100, 100, 100 };
+
+        var uobjects = IoC.Resolve<Dictionary<Guid, IUObject>>("Game.IUObject.Container").Values.ToList();
+
+        var actualFuel = new List<int>();
+
+        uobjects.ForEach(obj =>
+        {
+            var capacity = (int)obj.GetProperty("Capacity");
+            actualFuel.Add(capacity);
+        });
+
+        Assert.True(actualFuel.SequenceEqual(expectedFuel));
+    }
+
+    [Fact]
+    public void SuccesfulCreatingGameWithTwoPlayersWhoHaveThreeShips()
+    {
+        new LinearDisplacer().Call();
+        new GameCreator().Call();
+        new PositionGetter().Call();
+        new FuelGetter().Call();
+
+        IoC.Resolve<Hwdtech.ICommand>(
+            "IoC.Register",
+            "Game.Create.IUObject",
+            (object[] args) =>
+            {
+                var dict = new Dictionary<string, object>();
+                var uobj = new Mock<IUObject>();
+
+                uobj.Setup(u => u.SetProperty(It.IsAny<string>(), It.IsAny<object>())).Callback((string key, object value) =>
+                {
+                    dict.Add(key, value);
+                });
+
+                uobj.Setup(u => u.GetProperty(It.IsAny<string>())).Returns((string key) =>
+                {
+                    return dict[key];
+                });
+
+                return uobj.Object;
+            }
+        ).Execute();
+
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Initialize.LinearPositionsWithFuel", 3).Execute();
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Initialize.LinearPositionsWithFuel", 3).Execute();
+
+        var expectedPositions = new List<int[]>()
         {
             new int[] {0, 0},
             new int[] {0, 1},
             new int[] {0, 2},
-            new int[] {10, 0},
-            new int[] {10, 1},
-            new int[] {10, 2}
+            new int[] {1, 0},
+            new int[] {1, 1},
+            new int[] {1, 2}
         };
 
-        var isPositionOk = new List<bool>();
-        var isFuelOk = new List<bool>();
+        var expectedFuel = new List<int>() { 100, 100, 100, 100, 100, 100 };
 
-        var idx = 0;
 
-        _container.ToList().ForEach(x =>
+        var uobjects = IoC.Resolve<Dictionary<Guid, IUObject>>("Game.IUObject.Container").Values.ToList();
+
+        var actualPositions = new List<int[]>();
+        var actualFuel = new List<int>();
+
+        uobjects.ForEach(obj =>
         {
-            var pos = (Vector)x.Value.GetProperty("Position");
-            isPositionOk.Add((pos.Coords[0] == posList[idx][0]) && (pos.Coords[1] == posList[idx][1]));
-            isFuelOk.Add((int)x.Value.GetProperty("Capacity") == expectedFuel);
+            var vector = (Vector)obj.GetProperty("Position");
+            actualPositions.Add(vector.Coords);
+        });
+
+        uobjects.ForEach(obj =>
+        {
+            var capacity = (int)obj.GetProperty("Capacity");
+            actualFuel.Add(capacity);
+        });
+
+        var isPositionOk = new List<bool>();
+        var idx = 0;
+        actualPositions.ForEach(pos =>
+        {
+            isPositionOk.Add(pos == expectedPositions[idx]);
             idx++;
         });
 
-        Assert.True(_container.Count == 6 && isPositionOk.All(x => x == true) && isFuelOk.All(x => x == true));
+        Assert.All(isPositionOk, (val) => val.Equals(true));
+        Assert.True(actualFuel.SequenceEqual(expectedFuel));
     }
+
 }
 
