@@ -15,6 +15,7 @@ public class CreateNewScopeStrategy
         var gameScope = IoC.Resolve<object>("Scopes.New", mainScope);
         var scopeMap = IoC.Resolve<IDictionary<int, object>>("Scope.Map");
         scopeMap.Add(gameId, gameScope);
+        
         IoC.Resolve<ICommand>("Scopes.Current.Set", gameScope).Execute();
 
         IoC.Resolve<ICommand>("IoC.Register", "Game.Get.Quantum", (object[] args) => (object)quant).Execute();
