@@ -1,12 +1,8 @@
-using Hwdtech;
 using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using System.Net;
 
 namespace SpaceBattle.Server;
 
-public class HttpServer : IDisposable
+public class HttpServer : IAsyncDisposable
 {
     private IWebHost _app;
     public HttpServer(int port)
@@ -26,9 +22,9 @@ public class HttpServer : IDisposable
         await _app.RunAsync();
     }
 
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        _app.StopAsync();
+        await _app.StopAsync();
     }
 }
 

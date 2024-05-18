@@ -27,6 +27,7 @@ internal class ActCommand : SpaceBattle.Lib.ICommand
     }
 }
 
+
 public class EndpointTest
 {
     private Queue<SpaceBattle.Lib.ICommand> _testQueue;
