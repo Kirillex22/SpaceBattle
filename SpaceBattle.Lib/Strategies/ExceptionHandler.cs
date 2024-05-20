@@ -20,17 +20,9 @@ public class ExceptionHandler
         {
             var cmd = (ICommand)args[0];
             var exc = (Exception)args[1];
-            try
-            {
-                return _finder.Call(cmd, exc);
-            }
-            catch
-            {
-                throw new Exception("Unhandled exception at ExceptionHandler");
-            }
+            return _finder.Call(cmd, exc);
 
-        }
-        ).Execute();
+        }).Execute();
     }
 }
 
