@@ -1,11 +1,4 @@
-using CoreWCF;
-using System;
-using System.Runtime.Serialization;
-using Hwdtech;
-using System.Runtime.CompilerServices;
-using System.Net;
-using CoreWCF.OpenApi.Attributes;
-using CoreWCF.Web;
+﻿using Hwdtech;
 
 namespace SpaceBattle.Server;
 

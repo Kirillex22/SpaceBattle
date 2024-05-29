@@ -1,7 +1,3 @@
-using CoreWCF;
-using System;
-using System.Runtime.Serialization;
-
 namespace SpaceBattle.Server;
 
 [DataContract]
