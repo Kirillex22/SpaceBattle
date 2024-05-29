@@ -24,3 +24,4 @@ public class CompileGameAdapterCommand : ICommand
         assemblyMap[pair] = assembly;
     }
 }
+
