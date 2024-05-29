@@ -4,7 +4,7 @@ namespace SpaceBattle.Lib;
 
 public class ShootCommand : ICommand
 {
-    private IShootable _shoot
+    private IShootable _shoot;
 
     public ShootCommand(IShootable shoot)
     {

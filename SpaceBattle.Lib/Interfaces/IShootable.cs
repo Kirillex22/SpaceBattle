@@ -2,8 +2,8 @@ namespace SpaceBattle.Lib;
 
 public interface IShootable
 {
-    public Position {get; set;}
-    public Velocity {get; set;}
-    public BulletType {get; set;}
+    Vector Position {get; set;}
+    Vector Velocity {get; set;}
+    string BulletType {get; set;}
 }
 

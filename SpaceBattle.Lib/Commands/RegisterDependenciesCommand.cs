@@ -4,7 +4,7 @@ namespace SpaceBattle.Lib;
 
 public class RegisterDependenciesCommand : ICommand
 {
-    private int _gameId
+    private int _gameId;
 
     public RegisterDependenciesCommand(int gameId)
     {

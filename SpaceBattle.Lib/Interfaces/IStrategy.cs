@@ -2,6 +2,6 @@ namespace SpaceBattle.Lib;
 
 public interface IStrategy
 {
-    public void Run(params object[] args)
+    public object Run(params object[] args);
 }
 
