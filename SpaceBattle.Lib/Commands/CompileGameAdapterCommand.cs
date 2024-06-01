@@ -1,27 +1,28 @@
-using System;
+using System.Reflection;
 using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
 public class CompileGameAdapterCommand : ICommand
 {
-    public Type _objectType;
-    public Type _targetType;
+    private Type _objectType;
+    private Type _targetType;
 
     public CompileGameAdapterCommand(Type objectType, Type targetType)
     {
         _objectType = objectType;
         _targetType = targetType;
     }
-    
+
     public void Execute()
     {
-        var codeAdapter = IoC.Resolve<string>("Game.Code.Adapter", _objectType, _targetType);
-        var assembly = IoC.Resolve<Assembly>("Compile", codeAdapter);
-        var assemblyMap = IoC.Resolve<IDictionary<KeyValuePair<Type, Type>, Assembly>>("Game.Adapter.Assembly.Map");
-        var pair = new KeyValuePair<Type, Type>(_objectType, _targetType);
+        var adapter = IoC.Resolve<string>("Game.Adapter.Code", _objectType, _targetType);
+        var assembly = IoC.Resolve<Assembly>("Compile", adapterCode);
 
-        assemblyMap[pair] = assembly;
+        var assemblyDict = IoC.Resolve<IDictionary<KeyValuePair<Type, Type>, Assembly>>("Game.Adapter.Assembly");
+        var keyPair = new KeyValuePair<Type, Type>(_objectType, _targetType);
+
+        assemblyDict[keyPair] = assembly;
     }
 }
 
