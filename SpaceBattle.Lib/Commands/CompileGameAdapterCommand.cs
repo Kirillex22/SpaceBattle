@@ -17,7 +17,7 @@ public class CompileGameAdapterCommand : ICommand
     public void Execute()
     {
         var adapter = IoC.Resolve<string>("Game.Adapter.Code", _objectType, _targetType);
-        var assembly = IoC.Resolve<Assembly>("Compile", adapterCode);
+        var assembly = IoC.Resolve<Assembly>("Compile", adapter);
 
         var assemblyDict = IoC.Resolve<IDictionary<KeyValuePair<Type, Type>, Assembly>>("Game.Adapter.Assembly");
         var keyPair = new KeyValuePair<Type, Type>(_objectType, _targetType);
