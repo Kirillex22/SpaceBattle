@@ -13,7 +13,7 @@ public class CompileStrategy
         Assembly assembly;
         var code = (string)args[0];
 
-        var assemblyStr = IoC.Resolve<string>("Assembly.Create.Name");
+        var assemblyStr = IoC.Resolve<string>("Assembly.Name.Create");
         var reference = IoC.Resolve<IEnumerable<MetadataReference>>("Compile.References");
 
         var options = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
