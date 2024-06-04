@@ -2,7 +2,7 @@ using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
-public class RegisterCommandsCommand
+public class RegisterCommandsCommand : ICommand
 {
     public void Execute()
     {

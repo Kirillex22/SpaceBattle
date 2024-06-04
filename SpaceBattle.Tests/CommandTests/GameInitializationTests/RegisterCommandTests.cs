@@ -35,4 +35,3 @@ public class RegisterCommandTests
         moqGetId.Verify(i => i.Run(), Times.Once);
     }
 }
-
