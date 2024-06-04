@@ -1,7 +1,6 @@
 namespace SpaceBattle.Tests;
 
 using SpaceBattle.Lib;
-using System.Collections;
 using Hwdtech;
 using Hwdtech.Ioc;
 using Moq;
@@ -72,6 +71,22 @@ public class FireCommandTest
     }
 
     [Fact]
+    public void SuccesfulSettingPptsOfFbleAdapter()
+    {
+        new GameObjectsContainer().Call();
+
+        var shipId = Guid.NewGuid();
+
+        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Create.EmptyObject", shipId).Execute();
+        var ship = IoC.Resolve<Dictionary<Guid, IUObject>>("Game.IUObject.Container")[shipId];
+
+        var fbleAdapter = new FireableAdapter(ship);
+
+        fbleAdapter.AmmoType = "105mm";
+        fbleAdapter.AmmoPosition = new Vector(new int[] { 0, 0 });
+    }
+
+    [Fact]
     public void SuccesfulExecutingOfTheFireCommand()
     {
         new GameObjectsContainer().Call();
@@ -104,22 +119,6 @@ public class FireCommandTest
         Assert.True("105mm" == ammoType);
         Assert.True(pos.Coords[0] == 0 && pos.Coords[1] == 0);
         Assert.True(vel.Coords[1] == 1 && vel.Coords[1] == 1);
-    }
-
-    [Fact]
-    public void SuccesfulSettingPptsOfFbleAdapter()
-    {
-        new GameObjectsContainer().Call();
-
-        var shipId = Guid.NewGuid();
-
-        IoC.Resolve<SpaceBattle.Lib.ICommand>("Game.Create.EmptyObject", shipId).Execute();
-        var ship = IoC.Resolve<Dictionary<Guid, IUObject>>("Game.IUObject.Container")[shipId];
-
-        var fbleAdapter = new FireableAdapter(ship);
-
-        fbleAdapter.AmmoType = "105mm";
-        fbleAdapter.AmmoPosition = new Vector(new int[] { 0, 0 });
     }
 }
 
