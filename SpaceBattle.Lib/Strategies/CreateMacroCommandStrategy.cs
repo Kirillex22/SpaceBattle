@@ -4,7 +4,7 @@ using Hwdtech;
 namespace SpaceBattle.Lib;
 
 
-public class CreateMacroCommandStrategy
+public class CreateMacroCommandStrategy : IStrategy
 {
     public object Run(params object[] args)
     {

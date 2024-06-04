@@ -2,7 +2,7 @@ using System;
 
 namespace SpaceBattle.Lib;
 
-public class RegisterDependenciesStrategy
+public class RegisterDependenciesStrategy : IStrategy
 {
     public object Run(params object[] args)
     {

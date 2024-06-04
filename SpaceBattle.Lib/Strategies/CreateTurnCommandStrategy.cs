@@ -3,7 +3,7 @@ using System;
 
 namespace SpaceBattle.Lib;
 
-public class CreateTurnCommandStrategy
+public class CreateTurnCommandStrategy : IStrategy
 {
     public object Run(params object[] args)
     {

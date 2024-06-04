@@ -3,7 +3,7 @@ using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
-public class InitializateDependenciesStrategy
+public class InitializateDependenciesStrategy : IStrategy
 {
     public object Run(params object[] args)
     {
