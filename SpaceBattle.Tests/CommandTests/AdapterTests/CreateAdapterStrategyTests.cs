@@ -27,7 +27,7 @@ public class CreateAdapterTests
         var moqCmd = new Mock<Lib.ICommand>();
         moqCmd.Setup(i => i.Execute()).Verifiable();
 
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Adapter.Assembly.Map", (object[] args) => assemblyDict).Execute();
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Adapter.Assembly", (object[] args) => assemblyDict).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Adapter.Compile", (object[] args) => moqCmd.Object).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Adapter.Find", (object[] args) => (object)0).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Adapter.Create", (object[] args) => new CreateAdapterStrategy().Run(args)).Execute();
@@ -35,8 +35,8 @@ public class CreateAdapterTests
         Assert.NotEmpty(assemblyDict);
         moqCmd.Verify(i => i.Execute(), Times.Never());
 
-        var adapter = IoC.Resolve<object>("Game.Adapter.Create", moqUobj.Object, targetType);
-        Console.WriteLine(adapter);
+        object adapter = IoC.Resolve<object>("Game.Adapter.Create", moqUobj.Object, targetType);
+
         Assert.Equal(0, adapter);
         moqCmd.Verify(i => i.Execute(), Times.Never());
     }
@@ -53,7 +53,7 @@ public class CreateAdapterTests
         var moqCmd = new Mock<Lib.ICommand>();
         moqCmd.Setup(i => i.Execute()).Callback(() => assemblyDict[new KeyValuePair<Type, Type>(moqUobj.Object.GetType(), targetType)] = assembly).Verifiable();
 
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Adapter.Assembly.Map", (object[] args) => assemblyDict).Execute();
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Adapter.Assembly", (object[] args) => assemblyDict).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Adapter.Compile", (object[] args) => moqCmd.Object).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Adapter.Find", (object[] args) => (object)1).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Adapter.Create", (object[] args) => new CreateAdapterStrategy().Run(args)).Execute();
@@ -61,7 +61,7 @@ public class CreateAdapterTests
         Assert.Empty(assemblyDict);
         moqCmd.Verify(i => i.Execute(), Times.Never());
 
-        var adapter = IoC.Resolve<ICommand>("Game.Adapter.Create", moqUobj.Object, targetType);
+        object adapter = IoC.Resolve<object>("Game.Adapter.Create", moqUobj.Object, targetType);
 
         Assert.Single(assemblyDict);
         Assert.Equal(1, adapter);
