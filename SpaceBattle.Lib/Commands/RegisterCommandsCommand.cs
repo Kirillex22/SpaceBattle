@@ -1,4 +1,5 @@
 using Hwdtech;
+using Hwdtech.Ioc;
 
 namespace SpaceBattle.Lib;
 
@@ -8,7 +9,10 @@ public class RegisterCommandsCommand : ICommand
     {
         var dependencies = IoC.Resolve<IDictionary<string, IStrategy>>("Game.Dependencies.Get");
 
-        dependencies.ToList().ForEach( i => {IoC.Resolve<ICommand>("Game.Command." + i.Key).Execute();} );
+        dependencies.ToList().ForEach(i =>
+        {
+            IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Game.Command." + i.Key, (object[] args) => i.Value.Run(args)).Execute();
+        });
     }
 }
 
