@@ -10,7 +10,7 @@ public class GetUObjectStrategy
     {
         int id = (int)args[0];
         var dict = IoC.Resolve<IDictionary<int, IUObject>>("Game.UObject");
-
+      
         if (!dict.TryGetValue(id, out IUObject uobj))
         {
             throw new Exception();
