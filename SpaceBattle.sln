@@ -6,6 +6,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceBattle.Tests", "SpaceB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceBattle", "SpaceBattle.Lib\SpaceBattle.csproj", "{8FD0806A-315E-4E09-8042-5C5B6EF03987}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceBattle.Server", "SpaceBattle.Server\SpaceBattle.Server.csproj", "{E4ED6424-B21F-4A8C-9000-00449D671A8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,14 @@ Global
 		{8FD0806A-315E-4E09-8042-5C5B6EF03987}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FD0806A-315E-4E09-8042-5C5B6EF03987}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FD0806A-315E-4E09-8042-5C5B6EF03987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFF81672-1E79-4185-8E20-5B18C7FAB041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFF81672-1E79-4185-8E20-5B18C7FAB041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFF81672-1E79-4185-8E20-5B18C7FAB041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFF81672-1E79-4185-8E20-5B18C7FAB041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4ED6424-B21F-4A8C-9000-00449D671A8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4ED6424-B21F-4A8C-9000-00449D671A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4ED6424-B21F-4A8C-9000-00449D671A8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4ED6424-B21F-4A8C-9000-00449D671A8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

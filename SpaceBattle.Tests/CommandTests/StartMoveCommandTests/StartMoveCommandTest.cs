@@ -27,7 +27,7 @@ public class StartMoveCommandTest
                 var value = args[2];
 
                 target.SetProperty(key, value);
-                return new object();
+                return new Mock<SpaceBattle.Lib.ICommand>().Object;
             }
         ).Execute();
 

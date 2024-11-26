@@ -14,18 +14,18 @@ public class StartMoveCommand : ICommand
 
     public void Execute()
     {
-        _startable.InitialValues.ToList().ForEach(value => IoC.Resolve<object>(
+        _startable.InitialValues.ToList().ForEach(value => IoC.Resolve<ICommand>(
             "Game.IUObject.SetProperty",
             _startable.Target,
             value.Key,
             value.Value
-        ));
+        ).Execute());
 
         string cmdName = _startable.Command;
 
         var cmd = IoC.Resolve<ICommand>($"Game.Command.{cmdName}", _startable.Target);
         var bridgeCmd = IoC.Resolve<ICommand>("Game.Command.Inject", cmd);
-        IoC.Resolve<object>("Game.IUObject.SetProperty", _startable.Target, "command", bridgeCmd);
+        IoC.Resolve<ICommand>("Game.IUObject.SetProperty", _startable.Target, "command", bridgeCmd).Execute();
         IoC.Resolve<IQueue>("Game.Queue").Push(bridgeCmd);
     }
 }
