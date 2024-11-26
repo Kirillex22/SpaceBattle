@@ -224,6 +224,43 @@ testRunner.Then("возникает ошибка Exception", ((string)(null)), (
             this.ScenarioCleanup();
         }
         
+        [Xunit.SkippableFactAttribute(DisplayName="Если скорость корабля не соответствует его положению")]
+        [Xunit.TraitAttribute("FeatureTitle", "Поворот вокруг собственной оси")]
+        [Xunit.TraitAttribute("Description", "Если скорость корабля не соответствует его положению")]
+        public void ЕслиСкоростьКорабляНеСоответствуетЕгоПоложению()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Если скорость корабля не соответствует его положению", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 29
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 30
+testRunner.Given("космический корабль находится под углом к горизонту в (45) градусов", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Дано ");
+#line hidden
+#line 31
+testRunner.And("имеет угловую скорость (90) градусов с другим separation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
+#line hidden
+#line 32
+testRunner.And("изменить угол наклона к горизонту невозможно", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
+#line hidden
+#line 33
+testRunner.When("происходит поворот вокруг собственной оси", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Когда ");
+#line hidden
+#line 34
+testRunner.Then("возникает ошибка System.Exception", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Тогда ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

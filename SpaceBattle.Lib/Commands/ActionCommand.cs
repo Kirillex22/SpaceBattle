@@ -2,15 +2,15 @@ namespace SpaceBattle.Lib;
 
 public class ActionCommand : ICommand
 {
-    private Action _action;
-
-    public ActionCommand(Action action)
+    private Action _act;
+    public ActionCommand(Action act)
     {
-        _action = action;
+        _act = act;
     }
+
     public void Execute()
     {
-        _action();
+        _act();
     }
 }
 

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>true</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="CoreWCF" />
+    <Using Include="CoreWCF.Channels" />
+    <Using Include="CoreWCF.Description" />
+    <Using Include="System.Runtime.Serialization " />
+    <Using Include="SpaceBattle.Server" />
+    <Using Include="Microsoft.Extensions.DependencyInjection.Extensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CoreWCF.Http" Version="1.*" />
+     <PackageReference Include="CoreWCF.WebHttp" Version="1.5.2" />
+    <PackageReference Include="Hwdtech.IoC" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpaceBattle.Lib\SpaceBattle.csproj" />
+  </ItemGroup>
+</Project>
